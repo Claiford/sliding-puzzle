@@ -1,0 +1,15 @@
+.grid {
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1px;
+    margin: 0 auto;
+}
+
+.tile {
+    flex: 1 0 25%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid red;
+    text-align: center;
+}

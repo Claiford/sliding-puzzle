@@ -7,7 +7,7 @@ Task | Completion | Date
 3x3 grid | [x] | 10-Jun
 swappable tiles | [x] | 10-Jun
 variable grid size | [x] | 10-Jun
-shuffle grid | [x] | -
+shuffle grid | [x] | 10-Jun
 grid completion | [ ] | -
 randomise missing tile | [ ] | -
 tile with images | [ ] | -

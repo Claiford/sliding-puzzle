@@ -8,6 +8,8 @@ Task | Completion | Date
 swappable tiles | [x] | 10-Jun
 variable grid size | [x] | 10-Jun
 shuffle grid | [x] | -
+grid completion | [ ] | -
+randomise missing tile | [ ] | -
 tile with images | [ ] | -
 image selection | [ ] | -
 grid size selection | [ ] | -

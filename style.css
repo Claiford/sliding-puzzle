@@ -1,5 +1,5 @@
 .grid {
-    width: 500px;
+    max-width: 500px;
     display: flex;
     flex-wrap: wrap;
     justify-content: stretch;
@@ -9,12 +9,27 @@
 }
 
 .tile {
-    flex: 1 0 30%;
     aspect-ratio: 1 / 1;
     border: 1px solid red;
     text-align: center;
 }
 
+.tile p {
+    margin: 0;
+}
+
+.tile-width3 {
+    flex: 1 0 30%;
+}
+
+.tile-width4 {
+    flex: 1 0 20%;
+}
+
+.tile-width5 {
+    flex: 1 0 18%;
+}
+
 p {
-    font-size: 50px;
+    font-size: 40px;
 }

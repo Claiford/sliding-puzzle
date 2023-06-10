@@ -4,7 +4,7 @@ const swapTileContent = (tile1, tile2) => {
     tile2.append(tile1.querySelector("p"));
 
     emptyTileID = tile1.id;
-}
+};
 
 const clickTile = (event) => {
     ///// check if any adjacent tile is empty, if so swap content /////
@@ -28,7 +28,7 @@ const clickTile = (event) => {
     // left tile
     const leftTile = document.querySelector(`#tile${thisTileRow}${thisTileCol - 1}`);
     if ((leftTile) && leftTile.id === emptyTileID) swapTileContent(thisTile, leftTile)
-}
+};
 
 const getTileContent = (height, width) => {
     tileTotal = height * width;
@@ -36,9 +36,9 @@ const getTileContent = (height, width) => {
     for (let i = 1; i < tileTotal + 1; i++) {
         content.push(i);
     }
-    content[tileTotal - 1] = "X"
+    content[tileTotal - 1] = ""
     return content;
-}
+};
 
 const createBoard = (height, width) => {
     const grid = Array.from(Array(height), () => new Array(width));
@@ -50,6 +50,7 @@ const createBoard = (height, width) => {
         for (let j = 0; j < width; j++) {
             const newTile = document.createElement("div");
             newTile.classList.add("tile");
+            newTile.classList.add(`tile-width${width}`);
             newTile.id = `tile${i}${j}`;
             newTile.addEventListener('click', clickTile);
     
@@ -62,12 +63,12 @@ const createBoard = (height, width) => {
 
             grid[i][j] = tileContent.innerText;
 
-            if (tileContent.innerText === "X") emptyTileID = newTile.id;
+            if (tileContent.innerText === "") emptyTileID = newTile.id;
         }
     }
     return grid;
-}
+};
 
 let emptyTileID = "";
-const grid = createBoard(3,3)
+const grid = createBoard(5,5)
 console.log(grid);

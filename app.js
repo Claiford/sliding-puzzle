@@ -1,15 +1,36 @@
-const swapTileContent = (tile1, tile2) => {
-    tile1.append(tile2.querySelector("p"));
-    tile2.append(tile1.querySelector("p"));
+const checkWin = () => {
+    ///// loop through grid and check if img IDs are in ascending order /////
+    let isWin = true;
+    let prevNum = grid[0][0];
+    for (let row of grid) {
+        for (let tileNum of row) {
+            if (tileNum < prevNum) {
+                isWin = false;
+                break;
+            }
+            prevNum = tileNum;
+        }
+    }
+    return isWin;
+}
 
-    emptyTileID = tile1.id;
+const swapTileContent = (filledTile, emptyTile) => {
+    filledTile.append(emptyTile.querySelector("p"));
+    emptyTile.append(filledTile.querySelector("p"));
+
+    const temp = grid[filledTile.id[4]][filledTile.id[5]];
+    grid[filledTile.id[4]][filledTile.id[5]] = grid[emptyTile.id[4]][emptyTile.id[5]];
+    grid[emptyTile.id[4]][emptyTile.id[5]] = temp;
+
+    emptyTileID = filledTile.id;
+    console.log(grid);
 };
 
 const clickTile = (event) => {
     ///// check if any adjacent tile is empty, if so swap content /////
     const thisTile = event.currentTarget;
-    const thisTileRow = Number(thisTile.id.split("")[4]);
-    const thisTileCol = Number(thisTile.id.split("")[5]);
+    const thisTileRow = Number(thisTile.id[4]);
+    const thisTileCol = Number(thisTile.id[5]);
     
     // top tile
     const topTile = document.querySelector(`#tile${thisTileRow - 1}${thisTileCol}`);
@@ -26,13 +47,29 @@ const clickTile = (event) => {
     // left tile
     const leftTile = document.querySelector(`#tile${thisTileRow}${thisTileCol - 1}`);
     if ((leftTile) && leftTile.id === emptyTileID) swapTileContent(thisTile, leftTile)
+
+    // check winning condition
+    if (gameStart && checkWin()) {
+        console.log("WINNER");
+        endBoard();
+    }
 };
 
+const endBoard = () => {
+    const allTiles = document.querySelectorAll(".tile");
+    for (let tile of allTiles) {
+        tile.removeEventListener('click', clickTile);
+    }
+
+    const finalTileContent = document.querySelector(`#${emptyTileID} p`);
+    finalTileContent.innerText = grid[emptyTileID[4]][emptyTileID[5]];
+}
+
 const shuffleBoard = () => {
-    ///// randomise 100 moves from initial complete board /////\
+    ///// randomise 100 moves from initial complete board /////
     for (let i = 0; i < 100; i++) {
-        const emptyTileRow = Number(emptyTileID.split("")[4]);
-        const emptyTileCol = Number(emptyTileID.split("")[5]);
+        const emptyTileRow = Number(emptyTileID[4]);
+        const emptyTileCol = Number(emptyTileID[5]);
         const adjacentTiles = [];
 
         //top tile
@@ -51,10 +88,12 @@ const shuffleBoard = () => {
         const leftTile = document.querySelector(`#tile${emptyTileRow}${emptyTileCol - 1}`);
         if (leftTile) adjacentTiles.push(leftTile);
 
-        // select random tile from adjacentTiles
+        // select random tile from adjacentTiles and swap with emptyTile
         const randomIndex = Math.floor(Math.random() * adjacentTiles.length);
         adjacentTiles[randomIndex].click();
     }
+
+    gameStart = true;
 }
 
 const getTileContent = (height, width) => {
@@ -63,13 +102,13 @@ const getTileContent = (height, width) => {
         content.push(i);
     }
 
-    if (isRandomMissingTile) {
-        // random tile is missing
-        const randomIndex = Math.floor(Math.random() * content.length);
-        console.log("missingNo", content[randomIndex]);
+    if (toggleRandomMissingTile) {
+        // assign random tile as missing
+        const randomIndex = Math.floor(Math.random() * content.length)
+        console.log("make random missing", randomIndex + 1);
         content[randomIndex] = ""
     } else {
-        // bottom-left tile is missing
+        // bottom-left tile as missing
         content[content.length - 1] = "";
     }
     
@@ -91,24 +130,25 @@ const createBoard = (height, width) => {
             newTile.addEventListener('click', clickTile);
     
             const tileContent = document.createElement("p");
-            tileContent.innerText = content[contentIndex];
+            tileContent.id = `img${contentIndex + 1}`;
+            grid[i][j] = contentIndex + 1;
+            tileContent.innerText = (content[contentIndex]);
             contentIndex++;
+
             newTile.append(tileContent);
-    
             document.querySelector(".grid").append(newTile);
 
-            grid[i][j] = tileContent.innerText;
-
-            if (tileContent.innerText === "") emptyTileID = newTile.id;
+            if (tileContent.innerText === "") {
+                emptyTileID = newTile.id;
+            }
         }
     }
     return grid;
 };
 
+let gameStart = false; // to prevent checkWin during shuffle
 let emptyTileID = "";
-let isRandomMissingTile = false;
+let toggleRandomMissingTile = false; // to toggle randomised missing tile
+
 const grid = createBoard(3, 3);
 shuffleBoard();
-
-console.log(grid);
-console.log(emptyTileID);

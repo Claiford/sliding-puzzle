@@ -9,7 +9,7 @@ swappable tiles | [x] | 10-Jun | -
 variable grid size | [x] | 10-Jun | -
 shuffle grid | [x] | 10-Jun | shuffle from initial complete board
 randomise missing tile | [x] | 10-Jun | toggle on/off
-grid completion | [x] | -
+grid completion | [x] | 10-Jun | solving algo for random missing tile is to decompose grid into smaller sqaures
 tile with images | [ ] | -
 image selection | [ ] | -
 grid size selection | [ ] | -

@@ -1,5 +1,4 @@
 const swapTileContent = (tile1, tile2) => {
-    console.log("swapping");
     tile1.append(tile2.querySelector("p"));
     tile2.append(tile1.querySelector("p"));
 
@@ -11,7 +10,6 @@ const clickTile = (event) => {
     const thisTile = event.currentTarget;
     const thisTileRow = Number(thisTile.id.split("")[4]);
     const thisTileCol = Number(thisTile.id.split("")[5]);
-    console.log(thisTileRow, thisTileCol);
     
     // top tile
     const topTile = document.querySelector(`#tile${thisTileRow - 1}${thisTileCol}`);
@@ -31,11 +29,11 @@ const clickTile = (event) => {
 };
 
 const shuffleBoard = () => {
-    ///// randomise 50 moves from initial complete board /////\
-    for (let i = 0; i < 50; i++) {
+    ///// randomise 100 moves from initial complete board /////\
+    for (let i = 0; i < 100; i++) {
         const emptyTileRow = Number(emptyTileID.split("")[4]);
         const emptyTileCol = Number(emptyTileID.split("")[5]);
-        adjacentTiles = [];
+        const adjacentTiles = [];
 
         //top tile
         const topTile = document.querySelector(`#tile${emptyTileRow - 1}${emptyTileCol}`);
@@ -54,19 +52,27 @@ const shuffleBoard = () => {
         if (leftTile) adjacentTiles.push(leftTile);
 
         // select random tile from adjacentTiles
-        randomIndex = Math.floor(Math.random() * adjacentTiles.length);
-        console.log(randomIndex);
+        const randomIndex = Math.floor(Math.random() * adjacentTiles.length);
         adjacentTiles[randomIndex].click();
     }
 }
 
 const getTileContent = (height, width) => {
-    tileTotal = height * width;
-    content = []
-    for (let i = 1; i < tileTotal + 1; i++) {
+    const content = []
+    for (let i = 1; i < height * width + 1; i++) {
         content.push(i);
     }
-    content[tileTotal - 1] = ""
+
+    if (isRandomMissingTile) {
+        // random tile is missing
+        const randomIndex = Math.floor(Math.random() * content.length);
+        console.log("missingNo", content[randomIndex]);
+        content[randomIndex] = ""
+    } else {
+        // bottom-left tile is missing
+        content[content.length - 1] = "";
+    }
+    
     return content;
 };
 
@@ -100,7 +106,9 @@ const createBoard = (height, width) => {
 };
 
 let emptyTileID = "";
-const grid = createBoard(3,3)
+let isRandomMissingTile = false;
+const grid = createBoard(3, 3);
 shuffleBoard();
+
 console.log(grid);
 console.log(emptyTileID);

@@ -30,6 +30,36 @@ const clickTile = (event) => {
     if ((leftTile) && leftTile.id === emptyTileID) swapTileContent(thisTile, leftTile)
 };
 
+const shuffleBoard = () => {
+    ///// randomise 50 moves from initial complete board /////\
+    for (let i = 0; i < 50; i++) {
+        const emptyTileRow = Number(emptyTileID.split("")[4]);
+        const emptyTileCol = Number(emptyTileID.split("")[5]);
+        adjacentTiles = [];
+
+        //top tile
+        const topTile = document.querySelector(`#tile${emptyTileRow - 1}${emptyTileCol}`);
+        if (topTile) adjacentTiles.push(topTile);
+
+        // right tile
+        const rightTile = document.querySelector(`#tile${emptyTileRow}${emptyTileCol + 1}`);
+        if (rightTile) adjacentTiles.push(rightTile);
+        
+        // bottom tile
+        const bottomTile = document.querySelector(`#tile${emptyTileRow + 1}${emptyTileCol}`);
+        if (bottomTile) adjacentTiles.push(bottomTile);
+        
+        // left tile
+        const leftTile = document.querySelector(`#tile${emptyTileRow}${emptyTileCol - 1}`);
+        if (leftTile) adjacentTiles.push(leftTile);
+
+        // select random tile from adjacentTiles
+        randomIndex = Math.floor(Math.random() * adjacentTiles.length);
+        console.log(randomIndex);
+        adjacentTiles[randomIndex].click();
+    }
+}
+
 const getTileContent = (height, width) => {
     tileTotal = height * width;
     content = []
@@ -70,5 +100,7 @@ const createBoard = (height, width) => {
 };
 
 let emptyTileID = "";
-const grid = createBoard(5,5)
+const grid = createBoard(3,3)
+shuffleBoard();
 console.log(grid);
+console.log(emptyTileID);

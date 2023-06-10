@@ -1,15 +1,20 @@
 .grid {
-    width: 600px;
+    width: 500px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: stretch;
     gap: 1px;
     margin: 0 auto;
+    border: 2px solid blue;
 }
 
 .tile {
-    flex: 1 0 25%;
+    flex: 1 0 30%;
     aspect-ratio: 1 / 1;
     border: 1px solid red;
     text-align: center;
+}
+
+p {
+    font-size: 50px;
 }

@@ -10,6 +10,7 @@ variable grid size | [x] | 10-Jun | -
 shuffle grid | [x] | 10-Jun | shuffle from initial complete board
 randomise missing tile | [x] | 10-Jun | toggle on/off
 grid completion | [x] | 10-Jun | solving algo for random missing tile is to decompose grid into smaller sqaures
+variable frame size | [x] | 12-Jun | square and 4x3
 tile with images | [ ] | -
 image selection | [ ] | -
 grid size selection | [ ] | -

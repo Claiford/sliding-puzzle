@@ -1,17 +1,55 @@
+.frame {
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border: 1px solid red;
+}
+
+.frame-square {
+    aspect-ratio: 1 / 1;
+}
+
+.frame-3x4 {
+    aspect-ratio: 3 / 4;
+}
+
+.frame-3x5 {
+    aspect-ratio: 3 / 5;
+}
+
+.frame-4x3 {
+    aspect-ratio: 4 / 3;
+}
+
+.frame-4x5 {
+    aspect-ratio: 4 / 5;
+}
+
+.frame-5x3 {
+    aspect-ratio: 5 / 3;
+}
+
+.frame-5x4 {
+    aspect-ratio: 5 / 4;
+}
+
 .grid {
-    max-width: 500px;
+    width: 75%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: stretch;
-    gap: 1px;
-    margin: 0 auto;
-    border: 2px solid blue;
+    justify-content: center;
+    margin: 0;
+    /* border: 2px solid blue; */
 }
 
 .tile {
     aspect-ratio: 1 / 1;
-    border: 1px solid red;
+    box-sizing: border-box;
+    border: 1px dashed red;
     text-align: center;
+    background-color: gray;
 }
 
 .tile p {
@@ -23,11 +61,11 @@
 }
 
 .tile-width4 {
-    flex: 1 0 20%;
+    flex: 1 0 22%;
 }
 
 .tile-width5 {
-    flex: 1 0 18%;
+    flex: 1 0 17%;
 }
 
 p {

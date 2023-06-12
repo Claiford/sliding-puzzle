@@ -1,8 +1,8 @@
 const checkWin = () => {
-    ///// loop through grid and check if img IDs are in ascending order /////
+    ///// loop through gameGrid and check if img IDs are in ascending order /////
     let isWin = true;
-    let prevNum = grid[0][0];
-    for (let row of grid) {
+    let prevNum = gameGrid[0][0];
+    for (let row of gameGrid) {
         for (let tileNum of row) {
             if (tileNum < prevNum) {
                 isWin = false;
@@ -18,12 +18,12 @@ const swapTileContent = (filledTile, emptyTile) => {
     filledTile.append(emptyTile.querySelector("p"));
     emptyTile.append(filledTile.querySelector("p"));
 
-    const temp = grid[filledTile.id[4]][filledTile.id[5]];
-    grid[filledTile.id[4]][filledTile.id[5]] = grid[emptyTile.id[4]][emptyTile.id[5]];
-    grid[emptyTile.id[4]][emptyTile.id[5]] = temp;
+    const temp = gameGrid[filledTile.id[4]][filledTile.id[5]];
+    gameGrid[filledTile.id[4]][filledTile.id[5]] = gameGrid[emptyTile.id[4]][emptyTile.id[5]];
+    gameGrid[emptyTile.id[4]][emptyTile.id[5]] = temp;
 
     emptyTileID = filledTile.id;
-    console.log(grid);
+    console.log(gameGrid);
 };
 
 const clickTile = (event) => {
@@ -62,7 +62,7 @@ const endBoard = () => {
     }
 
     const finalTileContent = document.querySelector(`#${emptyTileID} p`);
-    finalTileContent.innerText = grid[emptyTileID[4]][emptyTileID[5]];
+    finalTileContent.innerText = gameGrid[emptyTileID[4]][emptyTileID[5]];
 }
 
 const shuffleBoard = () => {
@@ -115,11 +115,18 @@ const getTileContent = (height, width) => {
     return content;
 };
 
-const createBoard = (height, width) => {
-    const grid = Array.from(Array(height), () => new Array(width));
+const createBoard = (width, height) => {
+    // set frame dimensions and image
+    const dimension = (width === height) ? "square" : `${width}x${height}`
+    console.log(dimension);
+    const frame = document.querySelector(".frame");
+    frame.classList.add("frame-" + dimension);
+    frame.style.backgroundImage = `url(images/frame_${dimension}.png)`
 
     const content = getTileContent(height, width);
     let contentIndex = 0;
+
+    const gameGrid = Array.from(Array(height), () => new Array(width));
 
     for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
@@ -131,7 +138,7 @@ const createBoard = (height, width) => {
     
             const tileContent = document.createElement("p");
             tileContent.id = `img${contentIndex + 1}`;
-            grid[i][j] = contentIndex + 1;
+            gameGrid[i][j] = contentIndex + 1;
             tileContent.innerText = (content[contentIndex]);
             contentIndex++;
 
@@ -143,12 +150,12 @@ const createBoard = (height, width) => {
             }
         }
     }
-    return grid;
+    return gameGrid;
 };
 
 let gameStart = false; // to prevent checkWin during shuffle
 let emptyTileID = "";
 let toggleRandomMissingTile = false; // to toggle randomised missing tile
 
-const grid = createBoard(3, 3);
+const gameGrid = createBoard(3, 3);
 shuffleBoard();

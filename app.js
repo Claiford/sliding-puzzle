@@ -15,8 +15,8 @@ const checkWin = () => {
 }
 
 const swapTileContent = (filledTile, emptyTile) => {
-    filledTile.append(emptyTile.querySelector("p"));
-    emptyTile.append(filledTile.querySelector("p"));
+    filledTile.append(emptyTile.querySelector("img"));
+    emptyTile.append(filledTile.querySelector("img"));
 
     const temp = gameGrid[filledTile.id[4]][filledTile.id[5]];
     gameGrid[filledTile.id[4]][filledTile.id[5]] = gameGrid[emptyTile.id[4]][emptyTile.id[5]];
@@ -61,8 +61,8 @@ const endBoard = () => {
         tile.removeEventListener('click', clickTile);
     }
 
-    const finalTileContent = document.querySelector(`#${emptyTileID} p`);
-    finalTileContent.innerText = gameGrid[emptyTileID[4]][emptyTileID[5]];
+    const finalTileContent = document.querySelector(`#${emptyTileID} img`);
+    finalTileContent.style.visibility = "visible";
 }
 
 const shuffleBoard = () => {
@@ -96,38 +96,53 @@ const shuffleBoard = () => {
     gameStart = true;
 }
 
-const getTileContent = (height, width) => {
-    const content = []
-    for (let i = 1; i < height * width + 1; i++) {
-        content.push(i);
-    }
+const fillTileContent = (image) => {
+    const canvas = document.createElement("canvas")
+    const canvasWidth = 300;
+    const canvasHeight = 300;
+    canvas.setAttribute("width", canvasWidth);
+    canvas.setAttribute("height", canvasHeight);
+    const ctx = canvas.getContext("2d");
 
-    if (toggleRandomMissingTile) {
-        // assign random tile as missing
-        const randomIndex = Math.floor(Math.random() * content.length)
-        console.log("make random missing", randomIndex + 1);
-        content[randomIndex] = ""
-    } else {
-        // bottom-left tile as missing
-        content[content.length - 1] = "";
+    const allTiles = document.querySelectorAll(".tile");
+    for (let tileIndex = 0; tileIndex < allTiles.length; tileIndex++) {
+        const tile = allTiles[tileIndex];
+        const tileContent = document.createElement("img");
+
+        tileContent.id = `img${Number(tileIndex) + 1}`;
+        gameGrid[tile.id[4]][tile.id[5]] = tileIndex + 1;
+
+        const xPos = Number(tile.id[5]) * 300;
+            const yPos = Number(tile.id[4]) * 300;
+            
+            const fullImage = new Image();
+            fullImage.src = image;
+            fullImage.onload = () => {
+                ctx.drawImage(fullImage, xPos, yPos, 300, 300, 0, 0, canvasWidth, canvasHeight);
+                const myImage = document.querySelector("#this-image");
+                tileContent.src = canvas.toDataURL();
+            };
+            tile.append(tileContent);
+
+        if (tile.id === emptyTileID) {
+            tileContent.style.visibility = "hidden";
+        }        
     }
-    
-    return content;
-};
+    canvas.remove();
+}
 
 const createBoard = (width, height) => {
-    // set frame dimensions and image
+    // set frame dimensions and frame image
     const dimension = (width === height) ? "square" : `${width}x${height}`
-    console.log(dimension);
     const frame = document.querySelector(".frame");
     frame.classList.add("frame-" + dimension);
     frame.style.backgroundImage = `url(images/frame_${dimension}.png)`
 
-    const content = getTileContent(height, width);
-    let contentIndex = 0;
-
-    const gameGrid = Array.from(Array(height), () => new Array(width));
-
+    // set empty tile based on toggleRandomMissingTile
+    const emptyIndex = toggleRandomMissingTile ? Math.floor(Math.random() * (width * height)) : (width * height) - 1;
+    
+    let trackingIndex = 0;
+    // create DOM tiles, each containing a canvas
     for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
             const newTile = document.createElement("div");
@@ -136,20 +151,20 @@ const createBoard = (width, height) => {
             newTile.id = `tile${i}${j}`;
             newTile.addEventListener('click', clickTile);
     
-            const tileContent = document.createElement("p");
-            tileContent.id = `img${contentIndex + 1}`;
-            gameGrid[i][j] = contentIndex + 1;
-            tileContent.innerText = (content[contentIndex]);
-            contentIndex++;
+            // const tileContent = document.createElement("canva");
 
-            newTile.append(tileContent);
+            // newTile.append(tileContent);
             document.querySelector(".grid").append(newTile);
 
-            if (tileContent.innerText === "") {
+            if (trackingIndex === emptyIndex) {
                 emptyTileID = newTile.id;
+                console.log(emptyTileID);
             }
+            trackingIndex++;
         }
     }
+
+    const gameGrid = Array.from(Array(height), () => new Array(width));
     return gameGrid;
 };
 
@@ -158,4 +173,5 @@ let emptyTileID = "";
 let toggleRandomMissingTile = false; // to toggle randomised missing tile
 
 const gameGrid = createBoard(3, 3);
-shuffleBoard();
+fillTileContent("./images/gryffindor_crest.png");
+// shuffleBoard();

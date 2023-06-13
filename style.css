@@ -1,4 +1,6 @@
 .frame {
+    max-width: 600px;
+    min-width: 400px;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -44,16 +46,12 @@
     /* border: 2px solid blue; */
 }
 
-.tile {
-    aspect-ratio: 1 / 1;
+.tile { 
     box-sizing: border-box;
     border: 1px dashed red;
-    text-align: center;
+    display: flex;
+    justify-content: center;
     background-color: gray;
-}
-
-.tile p {
-    margin: 0;
 }
 
 .tile-width3 {
@@ -68,6 +66,6 @@
     flex: 1 0 17%;
 }
 
-p {
-    font-size: 40px;
+.tile img {
+    width: 100%;
 }

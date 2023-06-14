@@ -1,46 +1,26 @@
 #info-frame {
     background-color: #d2cfd7;
-    border-radius: 15px;
-    margin: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
 
 #info-frame div {
-    margin: 15px 10px;
-    padding: 10px;
-    text-align: center;
     background-color: lightslategray;
-    border-radius: 10px;
 }
 
-#info-frame hr {
-    min-width: 50px;
-    margin: 5px;
+#difficulty-btns label:hover {
+    background: #464c50;
 }
 
-#info-frame p {
-    margin: 0;
+.difficulty-name {
+    display: none;
 }
 
 #game-backdrop {
-    /* background-image: url("./images/blacksmoke3.jpg"); */
-    /* background-size: cover; */
     background-color: #d2cfd7;
-    border-radius: 15px;
-    margin: 10px;
 }
 
 #game-frame {
-    /* max-width: 600px; */
     min-width: 300px;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    /* margin: 10px; */
 }
 
 .frame-square {
@@ -71,18 +51,9 @@
     aspect-ratio: 5 / 4;
 }
 
-#game-grid {
-    width: 75%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
 .tile { 
     box-sizing: border-box;
-    border: 1px dashed red;
-    display: flex;
-    justify-content: center;
+    border: 1px dashed #d2cfd7;
     background-color: gray;
 }
 
@@ -105,5 +76,17 @@
 @media (min-width: 768px) {
     #info-frame {
         flex-direction: column;
+    }
+
+    #info-frame div {
+        width: 80%;
+    }
+
+    #difficulty-btns {
+        flex-direction: column;
+    }
+
+    .difficulty-name {
+        display: inline;
     }
 }

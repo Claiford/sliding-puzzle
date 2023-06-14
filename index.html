@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-    <nav class="navbar navbar-expand bg-dark-subtle" data-bs-theme="dark">
+        <nav class="navbar navbar-expand bg-dark-subtle" data-bs-theme="dark">
         <div class="container-fluid">
           <!-- <a class="navbar-brand" href="#">HPSP</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,39 +27,98 @@
 
     <main class="container-fluid">
         <div class="row">
-            <div id="info-panel" class="col-md-3 gx-1">
-                <div id="info-frame">
-                    <div id="info-time-container">
-                        <p class="info-label">Time</p>
-                        <hr>
-                        <p id="info-time">00:00</p>
+            <div id="info-panel" class="col-md-4 gx-0">
+                <div id="info-frame" class="d-flex justify-content-center align-items-center rounded m-3">
+                    <div id="info-time-container" class="flex-fill rounded text-center p-2 m-3">
+                        <p class="info-label m-0">Time</p>
+                        <hr class="m-1">
+                        <p id="info-time" class="m-0">00:00</p>
                     </div>
-                    <div id="info-moves-container">
-                        <p class="info-label">Moves</p>
-                        <hr>
-                        <p id="info-moves">0</p>
+                    <div id="info-moves-container" class="flex-fill rounded text-center p-2 m-3">
+                        <p class="info-label m-0">Moves</p>
+                        <hr class="m-1">
+                        <p id="info-moves" class="m-0">0</p>
                     </div>
-                    <div id="info-difficulty-container">
-                        <p class="info-label">Difficulty <button type="button" class="badge btn text-bg-secondary fst-italic rounded-circle">i</button></p>
-                        <hr>
-                        <select class="form-select-sm border-0 bg-transparent p-1">
-                            <option selected value="1">WOMBAT</option>
-                            <option value="2">OWL</option>
-                            <option value="3" class="rounded">NEWT</option>
-                          </select>
+                    <div id="info-difficulty-container" class="flex-fill rounded text-center p-2 m-3">
+                        <p class="info-label m-0">Difficulty 
+                            <button id="difficultyInfo" type="button" class="badge btn text-bg-secondary fst-italic rounded-circle" data-bs-toggle="modal" data-bs-target="#difficultyModal">i
+                            </button>
+                        </p>                          
+                        <hr class="m-1">
+                        <div id="difficulty-btns" class="d-flex justify-content-center gap-1 mx-auto">
+                            <input type="radio" class="btn-check" name="difficultyOptions" id="wombat" autocomplete="off" checked>
+                            <label class="btn btn-outline-dark border-0" for="wombat">🐨  <span class="difficulty-name">wombat</span></label>
+                            <input type="radio" class="btn-check" name="difficultyOptions" id="owl" autocomplete="off">
+                            <label class="btn btn-outline-dark border-0" for="owl">🦉 <span class="difficulty-name">owl</span></label>
+                            <input type="radio" class="btn-check" name="difficultyOptions" id="newt" autocomplete="off">
+                            <label class="btn btn-outline-dark border-0" for="newt">🦎 <span class="difficulty-name">newt</span></label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="game-panel" class="col-md-9 gx-0">
-                <div id="game-backdrop">
-                    <div id="game-frame">
-                        <div id="game-grid"></div>
+            <div id="game-panel" class="col-md-8 gx-0">
+                <div id="game-backdrop" class="rounded m-3">
+                    <div id="game-frame" class="d-flex justify-content-center align-items-center">
+                        <div id="game-grid" class="w-75 d-flex flex-wrap"></div>
                     </div>
                 </div>
             </div>
         </div>
     </main>  
-    
+
+    <!-- MODALS -->
+    <div class="modal fade" id="difficultyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content text-bg-dark">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Difficulty Levels</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark">
+                        <thead>
+                          <tr>
+                            <th scope="col">Level</th>
+                            <th scope="col">Last tile</th>
+                            <th scope="col">Tile number</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                                <p>W.O.M.B.A.T 🐨</p>
+                                Wizards' Ordinary Magic and Basic Aptitude Test
+                            </td>
+                            <td>✔️</td>
+                            <td>✔️</td>
+                          </tr>
+                          <tr>
+                            <td>
+                                <p>O.W.L. 🦉</p>
+                                Ordinary Wizarding Level
+                            </td>
+                            <td>❌</td>
+                            <td>✔️</td>
+                          </tr>
+                          <tr>
+                            <td>
+                                <p>N.E.W.T. 🦎</p>
+                                Nastily Exhausting Wizarding Test
+                            </td>
+                            <td>❌</td>
+                            <td>❌</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         
     </footer>

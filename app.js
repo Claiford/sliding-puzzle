@@ -177,3 +177,10 @@ let toggleRandomMissingTile = false; // to toggle randomised missing tile
 
 const gameGrid = createBoard(3, 3);
 shuffleBoard(1);
+
+const myModal = document.querySelector('#difficultyModal')
+const myInput = document.getElementById('#difficultyInfo')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})

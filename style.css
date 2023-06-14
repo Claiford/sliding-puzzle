@@ -1,12 +1,46 @@
-.frame {
-    max-width: 600px;
-    min-width: 400px;
+#info-frame {
+    background-color: #d2cfd7;
+    border-radius: 15px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#info-frame div {
+    margin: 15px 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: lightslategray;
+    border-radius: 10px;
+}
+
+#info-frame hr {
+    min-width: 50px;
+    margin: 5px;
+}
+
+#info-frame p {
+    margin: 0;
+}
+
+#game-backdrop {
+    /* background-image: url("./images/blacksmoke3.jpg"); */
+    /* background-size: cover; */
+    background-color: #d2cfd7;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+#game-frame {
+    /* max-width: 600px; */
+    min-width: 300px;
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    border: 1px solid red;
+    /* margin: 10px; */
 }
 
 .frame-square {
@@ -37,13 +71,11 @@
     aspect-ratio: 5 / 4;
 }
 
-.grid {
+#game-grid {
     width: 75%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0;
-    /* border: 2px solid blue; */
 }
 
 .tile { 
@@ -68,4 +100,10 @@
 
 .tile img {
     width: 100%;
+}
+
+@media (min-width: 768px) {
+    #info-frame {
+        flex-direction: column;
+    }
 }

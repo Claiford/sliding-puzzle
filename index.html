@@ -6,17 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 </head>
 <body>
-
-
-    <div class="game-panel">
-        <div class="frame">
-            <div class="grid"></div>
+    <nav class="navbar navbar-expand bg-dark-subtle" data-bs-theme="dark">
+        <div class="container-fluid">
+          <!-- <a class="navbar-brand" href="#">HPSP</a> -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">Puzzles</a>
+              <a class="nav-link" href="#">About</a>
+            </div>
+          </div>
         </div>
-    </div>
+    </nav>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.js" integrity="sha512-LjPH94gotDTvKhoxqvR5xR2Nur8vO5RKelQmG52jlZo7SwI5WLYwDInPn1n8H9tR0zYqTqfNxWszUEy93cHHwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <main class="container-fluid">
+        <div class="row">
+            <div id="info-panel" class="col-md-3 gx-1">
+                <div id="info-frame">
+                    <div id="info-time-container">
+                        <p class="info-label">Time</p>
+                        <hr>
+                        <p id="info-time">00:00</p>
+                    </div>
+                    <div id="info-moves-container">
+                        <p class="info-label">Moves</p>
+                        <hr>
+                        <p id="info-moves">0</p>
+                    </div>
+                    <div id="info-difficulty-container">
+                        <p class="info-label">Difficulty <button type="button" class="badge btn text-bg-secondary fst-italic rounded-circle">i</button></p>
+                        <hr>
+                        <select class="form-select-sm border-0 bg-transparent p-1">
+                            <option selected value="1">WOMBAT</option>
+                            <option value="2">OWL</option>
+                            <option value="3" class="rounded">NEWT</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+            <div id="game-panel" class="col-md-9 gx-0">
+                <div id="game-backdrop">
+                    <div id="game-frame">
+                        <div id="game-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>  
+    
+    <footer>
+        
+    </footer>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 </html>

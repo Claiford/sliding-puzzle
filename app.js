@@ -1,54 +1,55 @@
 const checkWin = () => {
-    ///// loop through gameGrid and check if img IDs are in ascending order /////
+    ///// this function loops through gameGrid tracker and check if img sequence are in ascending order /////
     let isWin = true;
     let prevNum = gameGrid[0][0];
     for (let row of gameGrid) {
-        for (let tileNum of row) {
-            if (tileNum < prevNum) {
+        for (let thisNum of row) {
+            if (thisNum < prevNum) {
                 isWin = false;
                 break;
             }
-            prevNum = tileNum;
+            prevNum = thisNum;
         }
     }
     return isWin;
 }
 
 const swapTileContent = (filledTile, emptyTile) => {
+    ///// this function performs swap of image content of two tiles /////
     filledTile.append(emptyTile.querySelector("img"));
     emptyTile.append(filledTile.querySelector("img"));
 
+    // update gameGrid tracker
     const temp = gameGrid[filledTile.id[4]][filledTile.id[5]];
     gameGrid[filledTile.id[4]][filledTile.id[5]] = gameGrid[emptyTile.id[4]][emptyTile.id[5]];
     gameGrid[emptyTile.id[4]][emptyTile.id[5]] = temp;
 
+    // update empty tile tracker
     emptyTileID = filledTile.id;
     console.log(gameGrid);
 };
 
 const clickTile = (event) => {
-    ///// check if any adjacent tile is empty, if so swap content /////
+    ///// this function checks if any adjacent tile is the empty tile, if so swap content /////
     const thisTile = event.currentTarget;
     const thisTileRow = Number(thisTile.id[4]);
     const thisTileCol = Number(thisTile.id[5]);
     
+    // check adjacent tiles in clockwise order
     // top tile
     const topTile = document.querySelector(`#tile${thisTileRow - 1}${thisTileCol}`);
     if ((topTile) && topTile.id === emptyTileID) swapTileContent(thisTile, topTile);
-    
     // right tile
     const rightTile = document.querySelector(`#tile${thisTileRow}${thisTileCol + 1}`);
     if ((rightTile) && rightTile.id === emptyTileID) swapTileContent(thisTile, rightTile);
-    
     // bottom tile
     const bottomTile = document.querySelector(`#tile${thisTileRow + 1}${thisTileCol}`);
     if ((bottomTile) && bottomTile.id === emptyTileID) swapTileContent(thisTile, bottomTile);
-    
     // left tile
     const leftTile = document.querySelector(`#tile${thisTileRow}${thisTileCol - 1}`);
     if ((leftTile) && leftTile.id === emptyTileID) swapTileContent(thisTile, leftTile)
 
-    // check winning condition
+    // check if winning condition is met
     if (gameStart && checkWin()) {
         console.log("WINNER");
         endBoard();
@@ -65,25 +66,23 @@ const endBoard = () => {
     finalTileContent.style.visibility = "visible";
 }
 
-const shuffleBoard = () => {
-    ///// randomise 100 moves from initial complete board /////
-    for (let i = 0; i < 100; i++) {
+const shuffleBoard = (moves) => {
+    ///// this function randomises {moves} times from initial complete board /////
+    for (let i = 0; i < moves; i++) {
         const emptyTileRow = Number(emptyTileID[4]);
         const emptyTileCol = Number(emptyTileID[5]);
+        
+        // check if adjacent tile exists and push to array
         const adjacentTiles = [];
-
-        //top tile
+        // top tile
         const topTile = document.querySelector(`#tile${emptyTileRow - 1}${emptyTileCol}`);
         if (topTile) adjacentTiles.push(topTile);
-
         // right tile
         const rightTile = document.querySelector(`#tile${emptyTileRow}${emptyTileCol + 1}`);
         if (rightTile) adjacentTiles.push(rightTile);
-        
         // bottom tile
         const bottomTile = document.querySelector(`#tile${emptyTileRow + 1}${emptyTileCol}`);
         if (bottomTile) adjacentTiles.push(bottomTile);
-        
         // left tile
         const leftTile = document.querySelector(`#tile${emptyTileRow}${emptyTileCol - 1}`);
         if (leftTile) adjacentTiles.push(leftTile);
@@ -93,10 +92,12 @@ const shuffleBoard = () => {
         adjacentTiles[randomIndex].click();
     }
 
+    // trigger gameStart flag
     gameStart = true;
 }
 
-const fillTileContent = (image) => {
+const fillTileContent = (gameGrid, imageURL) => {
+    // create canvas to draw and crop image
     const canvas = document.createElement("canvas")
     const canvasWidth = 300;
     const canvasHeight = 300;
@@ -104,29 +105,32 @@ const fillTileContent = (image) => {
     canvas.setAttribute("height", canvasHeight);
     const ctx = canvas.getContext("2d");
 
+    // loop through tiles and add cropped image as tile content
     const allTiles = document.querySelectorAll(".tile");
     for (let tileIndex = 0; tileIndex < allTiles.length; tileIndex++) {
         const tile = allTiles[tileIndex];
         const tileContent = document.createElement("img");
 
-        tileContent.id = `img${Number(tileIndex) + 1}`;
-        gameGrid[tile.id[4]][tile.id[5]] = tileIndex + 1;
-
+        // pixel coordinates on source image to crop from based on tile position
         const xPos = Number(tile.id[5]) * 300;
-            const yPos = Number(tile.id[4]) * 300;
-            
-            const fullImage = new Image();
-            fullImage.src = image;
-            fullImage.onload = () => {
-                ctx.drawImage(fullImage, xPos, yPos, 300, 300, 0, 0, canvasWidth, canvasHeight);
-                const myImage = document.querySelector("#this-image");
-                tileContent.src = canvas.toDataURL();
-            };
-            tile.append(tileContent);
-
+        const yPos = Number(tile.id[4]) * 300;
+        
+        const fullImage = new Image();
+        fullImage.src = imageURL;
+        fullImage.onload = () => {
+            ctx.drawImage(fullImage, xPos, yPos, 300, 300, 0, 0, canvasWidth, canvasHeight);
+            const myImage = document.querySelector("#this-image");
+            tileContent.src = canvas.toDataURL();
+        };
+        tile.append(tileContent);
+        
+        // set visibility of image to hidden for empty tile
         if (tile.id === emptyTileID) {
             tileContent.style.visibility = "hidden";
-        }        
+        }
+
+        // initialise gameGrid with sequential order for checking of win state in game
+        gameGrid[tile.id[4]][tile.id[5]] = tileIndex + 1;
     }
     canvas.remove();
 }
@@ -134,15 +138,15 @@ const fillTileContent = (image) => {
 const createBoard = (width, height) => {
     // set frame dimensions and frame image
     const dimension = (width === height) ? "square" : `${width}x${height}`
-    const frame = document.querySelector(".frame");
+    const frame = document.querySelector("#game-frame");
     frame.classList.add("frame-" + dimension);
     frame.style.backgroundImage = `url(images/frame_${dimension}.png)`
 
-    // set empty tile based on toggleRandomMissingTile
+    // set index for empty tile based on toggleRandomMissingTile
     const emptyIndex = toggleRandomMissingTile ? Math.floor(Math.random() * (width * height)) : (width * height) - 1;
     
-    let trackingIndex = 0;
-    // create DOM tiles, each containing a canvas
+    // create DOM tiles
+    let trackingIndex = 0; // track index of tile placement to set empty tile
     for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
             const newTile = document.createElement("div");
@@ -151,11 +155,9 @@ const createBoard = (width, height) => {
             newTile.id = `tile${i}${j}`;
             newTile.addEventListener('click', clickTile);
     
-            // const tileContent = document.createElement("canva");
+            document.querySelector("#game-grid").append(newTile);
 
-            // newTile.append(tileContent);
-            document.querySelector(".grid").append(newTile);
-
+            // set initial empty tile position
             if (trackingIndex === emptyIndex) {
                 emptyTileID = newTile.id;
                 console.log(emptyTileID);
@@ -165,13 +167,13 @@ const createBoard = (width, height) => {
     }
 
     const gameGrid = Array.from(Array(height), () => new Array(width));
+    fillTileContent(gameGrid, "./images/gryffindor_crest.png");
     return gameGrid;
 };
 
-let gameStart = false; // to prevent checkWin during shuffle
 let emptyTileID = "";
+let gameStart = false; // flag to prevent checkWin during shuffle
 let toggleRandomMissingTile = false; // to toggle randomised missing tile
 
 const gameGrid = createBoard(3, 3);
-fillTileContent("./images/gryffindor_crest.png");
-// shuffleBoard();
+shuffleBoard(1);

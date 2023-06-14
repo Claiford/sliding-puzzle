@@ -73,6 +73,17 @@
     width: 100%;
 }
 
+.tile-content {
+    position: relative;
+}
+
+.img-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    visibility: hidden;
+}
+
 @media (min-width: 768px) {
     #info-frame {
         flex-direction: column;

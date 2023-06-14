@@ -13,6 +13,7 @@ grid completion | [x] | 10-Jun | -
 variable frame size | [x] | 12-Jun | square and 4x3
 tile with images | [x] | 13-Jun | using canvas to crop original image
 game screen layout | [x] | 14-Jun | -
+toggle image sequence | [x] | 14-Jun | -
 selection screen layout | [ ] | -
 grid size selection | [ ] | -
 image selection | [ ] | -

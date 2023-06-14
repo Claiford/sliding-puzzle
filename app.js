@@ -1,5 +1,5 @@
 const checkWin = () => {
-    ///// this function loops through gameGrid tracker and check if img sequence are in ascending order /////
+    ///// this function loops through gameGrid tracker and check if img sequence is in ascending order /////
     let isWin = true;
     let prevNum = gameGrid[0][0];
     for (let row of gameGrid) {
@@ -16,8 +16,8 @@ const checkWin = () => {
 
 const swapTileContent = (filledTile, emptyTile) => {
     ///// this function performs swap of image content of two tiles /////
-    filledTile.append(emptyTile.querySelector("img"));
-    emptyTile.append(filledTile.querySelector("img"));
+    filledTile.append(emptyTile.querySelector(".tile-content"));
+    emptyTile.append(filledTile.querySelector(".tile-content"));
 
     // update gameGrid tracker
     const temp = gameGrid[filledTile.id[4]][filledTile.id[5]];
@@ -105,32 +105,50 @@ const fillTileContent = (gameGrid, imageURL) => {
     canvas.setAttribute("height", canvasHeight);
     const ctx = canvas.getContext("2d");
 
-    // loop through tiles and add cropped image as tile content
+    // loop through tiles to add tile content
     const allTiles = document.querySelectorAll(".tile");
     for (let tileIndex = 0; tileIndex < allTiles.length; tileIndex++) {
         const tile = allTiles[tileIndex];
-        const tileContent = document.createElement("img");
 
-        // pixel coordinates on source image to crop from based on tile position
+        // parent container for image and number
+        const tileContent = document.createElement("div");
+        tileContent.classList.add("tile-content");
+        
+        // img element containing cropped portion of source image
+        const contentImage = document.createElement("img");
+        //// pixel coordinates on source image to crop from based on tile position
         const xPos = Number(tile.id[5]) * 300;
         const yPos = Number(tile.id[4]) * 300;
-        
         const fullImage = new Image();
         fullImage.src = imageURL;
         fullImage.onload = () => {
             ctx.drawImage(fullImage, xPos, yPos, 300, 300, 0, 0, canvasWidth, canvasHeight);
             const myImage = document.querySelector("#this-image");
-            tileContent.src = canvas.toDataURL();
+            contentImage.src = canvas.toDataURL();
         };
-        tile.append(tileContent);
+        tileContent.append(contentImage);
+
+        // span element containing img sequence number
+        const contentNum = document.createElement("span");
+        contentNum.classList.add("img-number");
+        contentNum.classList.add("badge", "bg-dark");
+        contentNum.innerText = tileIndex + 1;
+        tileContent.append(contentNum);
+
+        // set visibility of img sequence
+        if (toggleShowImageSequence) {
+            contentNum.style.visibility = "visible";
+        }
         
         // set visibility of image to hidden for empty tile
         if (tile.id === emptyTileID) {
-            tileContent.style.visibility = "hidden";
+            contentImage.style.visibility = "hidden";
         }
 
         // initialise gameGrid with sequential order for checking of win state in game
         gameGrid[tile.id[4]][tile.id[5]] = tileIndex + 1;
+        
+        tile.append(tileContent);
     }
     canvas.remove();
 }
@@ -143,7 +161,7 @@ const createBoard = (width, height) => {
     frame.style.backgroundImage = `url(images/frame_${dimension}.png)`
 
     // set index for empty tile based on toggleRandomMissingTile
-    const emptyIndex = toggleRandomMissingTile ? Math.floor(Math.random() * (width * height)) : (width * height) - 1;
+    const emptyIndex = toggleFixedMissingTile ? (width * height) - 1: Math.floor(Math.random() * (width * height));
     
     // create DOM tiles
     let trackingIndex = 0; // track index of tile placement to set empty tile
@@ -173,7 +191,8 @@ const createBoard = (width, height) => {
 
 let emptyTileID = "";
 let gameStart = false; // flag to prevent checkWin during shuffle
-let toggleRandomMissingTile = false; // to toggle randomised missing tile
+let toggleFixedMissingTile = true; // to toggle randomised missing tile
+let toggleShowImageSequence = true; // to toggle image sequence visibility
 
 const gameGrid = createBoard(3, 3);
 shuffleBoard(1);

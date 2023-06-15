@@ -15,11 +15,11 @@ tile with images | [x] | 13-Jun | using canvas to crop original image
 game screen layout | [x] | 14-Jun | -
 toggle image sequence | [x] | 14-Jun | -
 difficulty info and selection | [x] | 15-Jun | bootstrap modals
+move no. tracking | [x] | 15-Jun | -
+time tracking | [ ] | -
 selection screen layout | [ ] | -
 grid size selection | [ ] | -
 image selection | [ ] | -
-time tracking | [ ] | -
-move no. tracking | [ ] | -
 2-player | [ ] | -
 
 ## Image credits

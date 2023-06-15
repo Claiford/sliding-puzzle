@@ -14,6 +14,11 @@ const checkWin = () => {
     return isWin;
 }
 
+const move = () => {
+    numMoves++;
+    document.querySelector("#info-moves").innerText = numMoves;
+}
+
 const swapTileContent = (filledTile, emptyTile) => {
     ///// this function performs swap of image content of two tiles /////
     filledTile.append(emptyTile.querySelector(".tile-content"));
@@ -26,7 +31,9 @@ const swapTileContent = (filledTile, emptyTile) => {
 
     // update empty tile tracker
     emptyTileID = filledTile.id;
-    console.log(gameGrid);
+
+    // update moves
+    if (gameStart) move();
 };
 
 const clickTile = (event) => {
@@ -178,7 +185,6 @@ const createBoard = (width, height) => {
             // set initial empty tile position
             if (trackingIndex === emptyIndex) {
                 emptyTileID = newTile.id;
-                console.log(emptyTileID);
             }
             trackingIndex++;
         }
@@ -193,6 +199,9 @@ const resetBoard = () => {
     const frame = document.querySelector("#game-frame")
     frame.classList.remove(frame.classList[3]);
     document.querySelector("#game-grid").innerHTML = "";
+
+    emptyTileID = ""
+    gameStart = false
     gameGrid = createBoard(3, 3);
     shuffleBoard(100);
 };
@@ -263,6 +272,7 @@ let emptyTileID = "";
 let gameStart = false; // flag to prevent checkWin during shuffle
 let toggleFixedMissingTile = true; // to toggle randomised missing tile
 let toggleShowImageSequence = true; // to toggle image sequence visibility
+let numMoves = 0;
 
 setDifficulty("wombat");
 let gameGrid = createBoard(3, 3);

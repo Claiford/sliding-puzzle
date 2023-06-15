@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
+<body class="vh-100">
         <nav class="navbar navbar-expand bg-dark-subtle" data-bs-theme="dark">
         <div class="container-fluid">
           <!-- <a class="navbar-brand" href="#">HPSP</a> -->
@@ -28,30 +28,33 @@
     <main class="container-fluid">
         <div class="row">
             <div id="info-panel" class="col-md-4 gx-0">
-                <div id="info-frame" class="d-flex justify-content-center align-items-center rounded m-3">
-                    <div id="info-time-container" class="flex-fill rounded text-center p-2 m-3">
+                <div id="info-frame" class="d-flex justify-content-evenly align-items-center rounded m-3 p-3">
+                    <div id="info-time-container" class="rounded text-center">
                         <p class="info-label m-0">Time</p>
                         <hr class="m-1">
                         <p id="info-time" class="m-0">00:00</p>
                     </div>
-                    <div id="info-moves-container" class="flex-fill rounded text-center p-2 m-3">
+                    <div id="info-moves-container" class="rounded text-center">
                         <p class="info-label m-0">Moves</p>
                         <hr class="m-1">
                         <p id="info-moves" class="m-0">0</p>
                     </div>
-                    <div id="info-difficulty-container" class="flex-fill rounded text-center p-2 m-3">
-                        <p class="info-label m-0">Difficulty 
-                            <button id="difficultyInfo" type="button" class="badge btn text-bg-secondary fst-italic rounded-circle" data-bs-toggle="modal" data-bs-target="#difficultyModal">i
+                    <div id="info-difficulty-container" class="rounded text-center">
+                        <p class="m-0">Difficulty 
+                            <button id="difficulty-info" type="button" class="badge btn btn-secondary fst-italic rounded-circle" data-bs-toggle="modal" data-bs-target="#difficulty-modal">i
                             </button>
                         </p>                          
                         <hr class="m-1">
-                        <div id="difficulty-btns" class="d-flex justify-content-center gap-1 mx-auto">
-                            <input type="radio" class="btn-check" name="difficultyOptions" id="wombat" autocomplete="off" checked>
-                            <label class="btn btn-outline-dark border-0" for="wombat">🐨  <span class="difficulty-name">wombat</span></label>
-                            <input type="radio" class="btn-check" name="difficultyOptions" id="owl" autocomplete="off">
-                            <label class="btn btn-outline-dark border-0" for="owl">🦉 <span class="difficulty-name">owl</span></label>
-                            <input type="radio" class="btn-check" name="difficultyOptions" id="newt" autocomplete="off">
-                            <label class="btn btn-outline-dark border-0" for="newt">🦎 <span class="difficulty-name">newt</span></label>
+                        <div id="difficulty-btns" class="mx-auto">
+                            <form id="difficulty-form" class="d-flex justify-content-center gap-1 mx-auto">
+                                <input type="radio" class="btn-check" name="difficulty-options" id="wombat" value="wombat" autocomplete="off">
+                                <label class="btn btn-outline-dark border-0 p-1" for="wombat">🐨 <span class="difficulty-name fw-bold">WOMBAT</span></label>
+                                <input type="radio" class="btn-check" name="difficulty-options" id="owl" value="owl" autocomplete="off">
+                                <label class="btn btn-outline-dark border-0 p-1" for="owl">🦉 <span class="difficulty-name fw-bold">OWL</span></label>
+                                <input type="radio" class="btn-check" name="difficulty-options" id="newt" value="newt" autocomplete="off">
+                                <label class="btn btn-outline-dark border-0 p-1" for="newt">🦎 <span class="difficulty-name fw-bold">NEWT</span></label>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -67,12 +70,11 @@
     </main>  
 
     <!-- MODALS -->
-    <div class="modal fade" id="difficultyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="difficulty-modal" tabindex="-1" aria-labelledby="difficulty-info" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content text-bg-dark">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Difficulty Levels</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-2 fw-bold" id="exampleModalLabel">Difficulty Levels</h1>
                 </div>
                 <div class="modal-body">
                     <table class="table table-dark">
@@ -86,7 +88,7 @@
                         <tbody>
                           <tr>
                             <td>
-                                <p>W.O.M.B.A.T 🐨</p>
+                                <p>🐨 W.O.M.B.A.T</p>
                                 Wizards' Ordinary Magic and Basic Aptitude Test
                             </td>
                             <td>✔️</td>
@@ -94,7 +96,7 @@
                           </tr>
                           <tr>
                             <td>
-                                <p>O.W.L. 🦉</p>
+                                <p>🦉 O.W.L.</p>
                                 Ordinary Wizarding Level
                             </td>
                             <td>❌</td>
@@ -102,7 +104,7 @@
                           </tr>
                           <tr>
                             <td>
-                                <p>N.E.W.T. 🦎</p>
+                                <p>🦎 N.E.W.T.</p>
                                 Nastily Exhausting Wizarding Test
                             </td>
                             <td>❌</td>
@@ -112,12 +114,29 @@
                       </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="change-modal" tabindex="-1" aria-labelledby="change-difficulty" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content text-bg-dark">
+            <div class="modal-header">
+                <h1 class="modal-title fs-2 fw-bold" id="exampleModalLabel">Reset Game?</h1>
+            </div>
+            <div class="modal-body">
+              <p class="fs-4">Difficulty: <span id="change-modal-selection"></span></p>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" form="difficulty-form" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" form="difficulty-form" class="btn btn-danger" data-bs-dismiss="modal">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
     <footer>
         

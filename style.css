@@ -2,8 +2,12 @@
     background-color: #d2cfd7;
 }
 
-#info-frame div {
-    background-color: lightslategray;
+#info-frame * {
+    font-size: .9em;
+}
+
+#difficulty-info {
+    font-size: .6em;
 }
 
 #difficulty-btns label:hover {
@@ -95,6 +99,14 @@
 
     #difficulty-btns {
         flex-direction: column;
+    }
+
+    #difficulty-form {
+        flex-direction: column;
+    }
+
+    #difficulty-btns label {
+        font-size: 15px;
     }
 
     .difficulty-name {

@@ -147,7 +147,7 @@ const fillTileContent = (gameGrid, imageURL) => {
 
         // initialise gameGrid with sequential order for checking of win state in game
         gameGrid[tile.id[4]][tile.id[5]] = tileIndex + 1;
-        
+
         tile.append(tileContent);
     }
     canvas.remove();
@@ -189,17 +189,81 @@ const createBoard = (width, height) => {
     return gameGrid;
 };
 
+const resetBoard = () => {
+    const frame = document.querySelector("#game-frame")
+    frame.classList.remove(frame.classList[3]);
+    document.querySelector("#game-grid").innerHTML = "";
+    gameGrid = createBoard(3, 3);
+    shuffleBoard(100);
+};
+
+const setDifficulty = (selectedDifficulty) => {
+    //// this function adjusts game settings based on selected difficulty /////
+    // adjust toggles
+    if (selectedDifficulty === "wombat") {
+        toggleFixedMissingTile = true;
+        toggleShowImageSequence = true;
+    } else if (selectedDifficulty === "owl") {
+        toggleFixedMissingTile = false;
+        toggleShowImageSequence = true;
+    } else if (selectedDifficulty === "newt") {
+        toggleFixedMissingTile = false;
+        toggleShowImageSequence = false;
+    }
+
+    // update difficulty buttons checked status
+    const difficultyBtns = document.querySelectorAll("#difficulty-form input[type='radio']");
+    for (let btn of difficultyBtns) {
+        (btn.id === selectedDifficulty) ? btn.setAttribute("checked", "checked") : btn.removeAttribute("checked");
+    }
+};
+
+//////////
+//    ___ __ __    ___  ____   ______      __ __   ____  ____   ___    _        ___  ____    _____
+//   /  _]  |  |  /  _]|    \ |      |    |  |  | /    ||    \ |   \  | |      /  _]|    \  / ___/
+//  /  [_|  |  | /  [_ |  _  ||      |    |  |  ||  o  ||  _  ||    \ | |     /  [_ |  D  )(   \_ 
+// |    _]  |  ||    _]|  |  ||_|  |_|    |  _  ||     ||  |  ||  D  || |___ |    _]|    /  \__  |
+// |   [_|  :  ||   [_ |  |  |  |  |      |  |  ||  _  ||  |  ||     ||     ||   [_ |    \  /  \ |
+// |     |\   / |     ||  |  |  |  |      |  |  ||  |  ||  |  ||     ||     ||     ||  .  \ \    |
+// |_____| \_/  |_____||__|__|  |__|      |__|__||__|__||__|__||_____||_____||_____||__|\_|  \___|
+//
+//////////
+
+document.addEventListener("DOMContentLoaded", () => {
+    const difficultyForm = document.querySelector("form");
+    const difficultyBtns = difficultyForm.querySelectorAll("input[type='radio']");
+
+    for (let btn of difficultyBtns) {
+        btn.addEventListener("change", (e) => {
+            document.querySelector("#change-modal-selection").innerText = e.target.id.toUpperCase();
+            const changeModal = new bootstrap.Modal('#change-modal');
+            changeModal.show();
+        })
+    };
+
+    difficultyForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        setDifficulty((new FormData(e.target)).get("difficulty-options"));
+        resetBoard()
+    });
+});
+
+//////////
+//  ____  ____   ____  ______  ____   ____  _      ____ _____   ___ 
+// |    ||    \ |    ||      ||    | /    || |    |    / ___/  /  _]
+//  |  | |  _  | |  | |      | |  | |  o  || |     |  (   \_  /  [_ 
+//  |  | |  |  | |  | |_|  |_| |  | |     || |___  |  |\__  ||    _]
+//  |  | |  |  | |  |   |  |   |  | |  _  ||     | |  |/  \ ||   [_ 
+//  |  | |  |  | |  |   |  |   |  | |  |  ||     | |  |\    ||     |
+// |____||__|__||____|  |__|  |____||__|__||_____||____|\___||_____|
+//
+//////////
+
 let emptyTileID = "";
 let gameStart = false; // flag to prevent checkWin during shuffle
 let toggleFixedMissingTile = true; // to toggle randomised missing tile
 let toggleShowImageSequence = true; // to toggle image sequence visibility
 
-const gameGrid = createBoard(3, 3);
-shuffleBoard(1);
-
-const myModal = document.querySelector('#difficultyModal')
-const myInput = document.getElementById('#difficultyInfo')
-
-myModal.addEventListener('shown.bs.modal', () => {
-  myInput.focus()
-})
+setDifficulty("wombat");
+let gameGrid = createBoard(3, 3);
+shuffleBoard(100);

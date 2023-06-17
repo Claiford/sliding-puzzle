@@ -16,7 +16,9 @@ game screen layout | [x] | 14-Jun | -
 toggle image sequence | [x] | 14-Jun | -
 difficulty info and selection | [x] | 15-Jun | bootstrap modals
 move no. tracking | [x] | 15-Jun | -
-time tracking | [ ] | -
+time tracking | [x] | 15-Jun | -
+highscores retrieval | [x] | 17-Jun | bootstrap offcanvas
+highscore submissions | [ ] | -
 selection screen layout | [ ] | -
 grid size selection | [ ] | -
 image selection | [ ] | -

@@ -15,8 +15,8 @@ const checkWin = () => {
 }
 
 const move = () => {
-    numMoves++;
-    document.querySelector("#info-moves").innerText = numMoves;
+    moveCount++;
+    document.querySelector("#info-movecount").innerText = moveCount;
 }
 
 const swapTileContent = (filledTile, emptyTile) => {
@@ -71,6 +71,8 @@ const endBoard = () => {
 
     const finalTileContent = document.querySelector(`#${emptyTileID} img`);
     finalTileContent.style.visibility = "visible";
+
+    endTimer();
 }
 
 const shuffleBoard = (moves) => {
@@ -160,7 +162,7 @@ const fillTileContent = (gameGrid, imageURL) => {
     canvas.remove();
 }
 
-const createBoard = (width, height) => {
+const createBoard = (puzzle, width, height) => {
     // set frame dimensions and frame image
     const dimension = (width === height) ? "square" : `${width}x${height}`
     const frame = document.querySelector("#game-frame");
@@ -190,20 +192,40 @@ const createBoard = (width, height) => {
         }
     }
 
-    const gameGrid = Array.from(Array(height), () => new Array(width));
-    fillTileContent(gameGrid, "./images/gryffindor_crest.png");
-    return gameGrid;
+    gameGrid = Array.from(Array(height), () => new Array(width));
+    imageName = puzzle.toLowerCase().replace(" ", "_");
+    fillTileContent(gameGrid, `./images/${imageName}.png`);
 };
 
-const resetBoard = () => {
+const resetBoard = (puzzle, dimension) => {
     const frame = document.querySelector("#game-frame")
     frame.classList.remove(frame.classList[3]);
     document.querySelector("#game-grid").innerHTML = "";
 
     emptyTileID = ""
     gameStart = false
-    gameGrid = createBoard(3, 3);
+    createBoard(puzzle, Number(dimension[0]), Number(dimension[2]));
     shuffleBoard(100);
+    endTimer();
+    startTimer();
+};
+
+const confirmChangeDifficulty = (e) => {
+    e.preventDefault();
+    setDifficulty((new FormData(e.target)).get("difficulty-options"));
+    resetBoard(gamePuzzle, gameDimension)
+};
+
+const alertChangeDifficulty = (e) => {
+    document.querySelector("#change-modal-selection").innerText = e.target.id.toUpperCase();
+
+    const changeModalBody = document.querySelector("#change-modal-body");
+    changeModalBody.innerHTML = "";
+    const clone = document.querySelector(`#difficulty-desc-${e.target.id}`).cloneNode(true);
+    changeModalBody.append(clone);
+
+    const changeModal = new bootstrap.Modal('#change-modal');
+    changeModal.show();
 };
 
 const setDifficulty = (selectedDifficulty) => {
@@ -227,6 +249,100 @@ const setDifficulty = (selectedDifficulty) => {
     }
 };
 
+updateHighscoreTable = async () => {
+    const highscoreTable = document.querySelector("#highscore-table");
+    highscoreTable.innerHTML = "";
+
+    let filterByPuzzle = null;
+    let filterByDimension = null;
+    let filterByDifficulty = null;
+
+    formFilters = new FormData(document.querySelector("#highscore-form")).getAll("filters");
+    for (let filter of formFilters) {
+        filterByPuzzle = (filter === "puzzle") ? gamePuzzle : null;
+        filterByDimension = (filter === "dimension") ? gameDimension : null;
+        filterByDifficulty = (filter === "difficulty") ? gameDifficulty : null;
+    }
+
+    let query = supabase
+        .from('highscores')
+        .select()
+
+    if (filterByPuzzle)  { query = query.eq('puzzle', filterByPuzzle) }
+    if (filterByDimension)  { query = query.eq('grid_size', filterByDimension) }
+    if (filterByDifficulty)  { query = query.eq('difficulty', filterByDifficulty) }
+
+    const {data, error} = await query
+
+    for (let row of data) {
+        console.log(row);
+        const newRow = document.createElement("tr");
+        // user
+        const player = document.createElement("td");
+        player.innerText = row["player_name"];
+        newRow.append(player);
+        // puzzle
+        const puzzle = document.createElement("td");
+        puzzle.innerText = row["puzzle"];
+        newRow.append(puzzle);
+        // dimension
+        const dimension = document.createElement("td");
+        dimension.innerText = row["grid_size"];
+        newRow.append(dimension);
+        // difficulty
+        const difficulty = document.createElement("td");
+        difficulty.innerText = row["difficulty"];
+        newRow.append(difficulty);
+        // time
+        const time = document.createElement("td");
+        const minutes = String(Math.floor(row["time_seconds"] / 60)).padStart(2, '0')
+        const seconds = String((row["time_seconds"] % 60)).padStart(2, '0');
+        time.innerText = `${minutes}:${seconds}`;
+        newRow.append(time);
+        // moves
+        const moves = document.createElement("td");
+        moves.innerText = row["move_count"];
+        newRow.append(moves);
+
+        highscoreTable.append(newRow);
+    }
+};
+
+const resetTimer = () => {
+    const minutesLabel = document.querySelector("#timer-minutes");
+    const secondsLabel = document.querySelector("#timer-seconds");
+    secondsLabel.innerText = "00";
+    minutesLabel.innerText = "00";
+}
+
+const endTimer = () => {
+    clearInterval(gameInterval);
+}
+
+const startTimer = () => {
+    const minutesLabel = document.querySelector("#timer-minutes");
+    const secondsLabel = document.querySelector("#timer-seconds");
+    // elapsedSeconds = 0;
+    gameInterval = setInterval(() => {
+        // elapsedSeconds++;
+        // secondsLabel.innerText = String((elapsedSeconds % 60)).padStart(2, '0');
+        // minutesLabel.innerText = String((Math.floor(elapsedSeconds / 60))).padStart(2, '0');
+        
+        globalSeconds++;
+        secondsLabel.innerText = String((globalSeconds % 60)).padStart(2, '0');
+        minutesLabel.innerText = String((Math.floor(globalSeconds / 60))).padStart(2, '0');
+    }, 1000);
+}
+
+const newGame = (puzzle, dimension, difficulty) => {
+    gamePuzzle = puzzle;
+    gameDimension = dimension;
+    gameDifficulty = difficulty;
+
+    setDifficulty(gameDifficulty);
+    resetBoard(gamePuzzle, gameDimension);
+}
+
 //////////
 //    ___ __ __    ___  ____   ______      __ __   ____  ____   ___    _        ___  ____    _____
 //   /  _]  |  |  /  _]|    \ |      |    |  |  | /    ||    \ |   \  | |      /  _]|    \  / ___/
@@ -239,22 +355,28 @@ const setDifficulty = (selectedDifficulty) => {
 //////////
 
 document.addEventListener("DOMContentLoaded", () => {
-    const difficultyForm = document.querySelector("form");
-    const difficultyBtns = difficultyForm.querySelectorAll("input[type='radio']");
+    const difficultyForm = document.querySelector("#difficulty-form");
+    difficultyForm.addEventListener('submit', confirmChangeDifficulty);
 
+    const difficultyBtns = difficultyForm.querySelectorAll("input[type='radio']");
     for (let btn of difficultyBtns) {
-        btn.addEventListener("change", (e) => {
-            document.querySelector("#change-modal-selection").innerText = e.target.id.toUpperCase();
-            const changeModal = new bootstrap.Modal('#change-modal');
-            changeModal.show();
-        })
+        btn.addEventListener("change", alertChangeDifficulty);
     };
 
-    difficultyForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        setDifficulty((new FormData(e.target)).get("difficulty-options"));
-        resetBoard()
-    });
+    const supabaseUrl = 'https://dklnskoijtaxitqqfmmy.supabase.co'
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrbG5za29panRheGl0cXFmbW15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY5NjI1NDQsImV4cCI6MjAwMjUzODU0NH0.nefGe9Xe7fJbBVpTscf0ma9oOlJhKUDqSnZNy5bCbv8"
+    supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+    const highscoreBtn = document.querySelector("#highscore-btn");
+    highscoreBtn.addEventListener("click", () => updateHighscoreTable());
+
+    const highscoreForm = document.querySelector("#highscore-form");
+    // highscoreForm.addEventListener('submit', updateHighscoreTable)
+
+    const highscoreFilters = highscoreForm.querySelectorAll("input[type='checkbox']");
+    for (let filter of highscoreFilters) {
+        filter.addEventListener("change", updateHighscoreTable);
+    }
 });
 
 //////////
@@ -272,8 +394,14 @@ let emptyTileID = "";
 let gameStart = false; // flag to prevent checkWin during shuffle
 let toggleFixedMissingTile = true; // to toggle randomised missing tile
 let toggleShowImageSequence = true; // to toggle image sequence visibility
-let numMoves = 0;
+let moveCount = 0; // moves tracker
+let gameInterval = null; // timer
+let globalSeconds = 0; // timer tracker
+let gameGrid = null;
+let gamePuzzle = null;
+let gameDimension = null;
+let gameDifficulty = null;
 
-setDifficulty("wombat");
-let gameGrid = createBoard(3, 3);
-shuffleBoard(100);
+let supabase = "";
+
+newGame("Gryffindor Crest", "3x3", "wombat")

@@ -21,40 +21,58 @@
               <a class="nav-link active" aria-current="page" href="#">Puzzles</a>
               <a class="nav-link" href="#">About</a>
             </div>
+            <button id="highscore-btn" class="btn ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#highscore-offcanvas">
+                🏆
+              </button>
           </div>
         </div>
     </nav>
 
     <main class="container-fluid">
         <div class="row">
-            <div id="info-panel" class="col-md-4 gx-0">
-                <div id="info-frame" class="d-flex justify-content-evenly align-items-center rounded m-3 p-3">
-                    <div id="info-time-container" class="rounded text-center">
-                        <p class="info-label m-0">Time</p>
-                        <hr class="m-1">
-                        <p id="info-time" class="m-0">00:00</p>
+            <div id="info-panel" class="col-md-4 gx-0 d-flex justify-content-center">
+                <div id="info-frame" class="d-flex flex-columnjustify-content-evenly align-items-center rounded m-3 p-3 w-100">
+                    <div id="info-score" class="info-subframe flex-fill d-flex justify-content-evenly  align-items-center">
+                        <div id="info-time-container" class="rounded text-center">
+                            <p class="info-label m-0 fw-bold">Time</p>
+                            <hr class="m-1">
+                            <div id="info-time" class="m-0">
+                                <span id="timer-minutes">00</span>
+                                :
+                                <span id="timer-seconds">00</span>
+                            </div>    
+                        </div>
+                        <div id="info-movecount-container" class="rounded text-center">
+                            <p class="info-label m-0 fw-bold">Moves</p>
+                            <hr class="m-1">
+                            <p id="info-movecount" class="m-0">0</p>
+                        </div>
                     </div>
-                    <div id="info-moves-container" class="rounded text-center">
-                        <p class="info-label m-0">Moves</p>
-                        <hr class="m-1">
-                        <p id="info-moves" class="m-0">0</p>
-                    </div>
-                    <div id="info-difficulty-container" class="rounded text-center">
-                        <p class="m-0">Difficulty 
-                            <button id="difficulty-info" type="button" class="badge btn btn-secondary fst-italic rounded-circle" data-bs-toggle="modal" data-bs-target="#difficulty-modal">i
-                            </button>
-                        </p>                          
-                        <hr class="m-1">
-                        <div id="difficulty-btns" class="mx-auto">
+                    <div id="info-desc" class="info-subframe flex-fill d-flex justify-content-evenly  align-items-center">
+                        <div id="info-puzzle-container" class="rounded text-center">
+                            <p class="info-label m-0 fw-bold">Puzzle</p>
+                            <hr class="m-1">
+                            <p id="info-puzzle" class="m-0">Gryffindor Crest</p>
+                        </div>
+                        <div id="info-dimension-container" class="rounded text-center">
+                            <p class="info-label m-0 fw-bold">Dimension</p>
+                            <hr class="m-1">
+                            <p id="info-puzzle" class="m-0">3 x 3</p>
+                        </div>
+                        <div id="info-difficulty-container" class="rounded text-center">
+                            <p class="info-label m-0 fw-bold">Difficulty 
+                                <button id="difficulty-info" type="button" class="badge btn btn-secondary fst-italic rounded-circle" data-bs-toggle="modal" data-bs-target="#difficulty-modal">i
+                                </button>
+                            </p>                          
+                            <hr class="m-1">
                             <form id="difficulty-form" class="d-flex justify-content-center gap-1 mx-auto">
                                 <input type="radio" class="btn-check" name="difficulty-options" id="wombat" value="wombat" autocomplete="off">
-                                <label class="btn btn-outline-dark border-0 p-1" for="wombat">🐨 <span class="difficulty-name fw-bold">WOMBAT</span></label>
+                                <label class="btn btn-outline-dark border-0 p-1" for="wombat">🐨<br><span class="difficulty-name fw-bold">WOMBAT</span></label>
                                 <input type="radio" class="btn-check" name="difficulty-options" id="owl" value="owl" autocomplete="off">
-                                <label class="btn btn-outline-dark border-0 p-1" for="owl">🦉 <span class="difficulty-name fw-bold">OWL</span></label>
+                                <label class="btn btn-outline-dark border-0 p-1" for="owl">🦉<br><span class="difficulty-name fw-bold">OWL</span></label>
                                 <input type="radio" class="btn-check" name="difficulty-options" id="newt" value="newt" autocomplete="off">
-                                <label class="btn btn-outline-dark border-0 p-1" for="newt">🦎 <span class="difficulty-name fw-bold">NEWT</span></label>
+                                <label class="btn btn-outline-dark border-0 p-1" for="newt">🦎<br><span class="difficulty-name fw-bold">NEWT</span></label>
                             </form>
-                            
                         </div>
                     </div>
                 </div>
@@ -80,13 +98,13 @@
                     <table class="table table-dark">
                         <thead>
                           <tr>
-                            <th scope="col">Level</th>
+                            <th scope="col">Difficulty</th>
                             <th scope="col">Last tile</th>
                             <th scope="col">Tile number</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <tr id="difficulty-desc-wombat">
                             <td>
                                 <p>🐨 W.O.M.B.A.T</p>
                                 Wizards' Ordinary Magic and Basic Aptitude Test
@@ -94,7 +112,7 @@
                             <td>✔️</td>
                             <td>✔️</td>
                           </tr>
-                          <tr>
+                          <tr id="difficulty-desc-owl">
                             <td>
                                 <p>🦉 O.W.L.</p>
                                 Ordinary Wizarding Level
@@ -102,7 +120,7 @@
                             <td>❌</td>
                             <td>✔️</td>
                           </tr>
-                          <tr>
+                          <tr id="difficulty-desc-newt">
                             <td>
                                 <p>🦎 N.E.W.T.</p>
                                 Nastily Exhausting Wizarding Test
@@ -120,14 +138,26 @@
         </div>
     </div>
 
-    <div class="modal fade" id="change-modal" tabindex="-1" aria-labelledby="change-difficulty" aria-hidden="true">
+    <div class="modal fade" id="change-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="change-difficulty" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content text-bg-dark">
             <div class="modal-header">
                 <h1 class="modal-title fs-2 fw-bold" id="exampleModalLabel">Reset Game?</h1>
             </div>
             <div class="modal-body">
-              <p class="fs-4">Difficulty: <span id="change-modal-selection"></span></p>
+                <p class="fs-4">Difficulty: <span id="change-modal-selection"></span></p>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Difficulty</th>
+                            <th scope="col">Last tile</th>
+                            <th scope="col">Tile number</th>
+                        </tr>
+                    </thead>
+                    <tbody id="change-modal-body">
+                        
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
               <button type="reset" form="difficulty-form" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -135,14 +165,59 @@
             </div>
           </div>
         </div>
-      </div>
-      
+    </div>
+
+    <!-- Offcanvas -->
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="highscore-offcanvas" aria-labelledby="highscoresOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Highscores</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="highscore-filters">
+                <div class="form-switch">
+                    <input class="form-check-input" type="checkbox" value="" id="filter-all">
+                    <label class="form-check-label" for="filter-all">All</label>
+                </div>
+                <form id="highscore-form" class="d-flex justify-content-between gap-1 mx-auto">
+                    <div>
+                        <input type="checkbox" class="form-check-input" name="filters" value="puzzle" id="filter-puzzle">
+                        <label class="form-check-label" for="filter-puzzle">Puzzle</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="form-check-input" name="filters" value="dimension" id="filter-dimension">
+                        <label class="form-check-label" for="filter-dimension">Dimension</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="form-check-input" name="filters" value="difficulty" id="filter-difficulty">
+                        <label class="form-check-label" for="filter-difficulty">Difficulty</label>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Puzzle</th>
+                        <th>Dimension</th>
+                        <th>Difficulty</th>
+                        <th>Time</th>
+                        <th>Moves</th>
+                    </tr>
+                </thead>
+                <tbody id="highscore-table">
+
+                </tbody>
+            </table>
+        </div>
+    </div>  
 
     <footer>
         
     </footer>
     
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>

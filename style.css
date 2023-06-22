@@ -1,6 +1,7 @@
 body {
     background-color: black;
     min-width: 300px;
+    height: 100vh;
 }
 
 section {
@@ -16,10 +17,11 @@ section {
     background-color: #938d85;
     flex-direction: column;
     margin: 16px 16px 8px 16px;
+    padding: 8px
 }
 
 #info-frame * {
-    font-size: .9rem;
+    font-size: .8rem;
 }
 
 #difficulty-info {
@@ -44,7 +46,7 @@ section {
 
 #game-frame {
     background-size: cover;
-    max-height: 66vh;
+    max-height: calc(100vh - 285px);
 }
 
 #reset-button {
@@ -155,6 +157,7 @@ section {
 
 #complete-alert {
     visibility: hidden;
+    margin: 8px 16px 16px 16px;
 }
 
 #complete-alert * {
@@ -169,7 +172,13 @@ section {
     #info-frame {
         flex-direction: row;
         gap: 10px;
+        padding: 16px;
     }
+
+    #info-frame * {
+        font-size: .9rem;
+    }
+    
 }
 
 @media (min-width: 768px) {
@@ -212,6 +221,6 @@ section {
     }
 
     #game-frame {
-        max-height: 80vh;
+        max-height: calc(100vh - 175px);
     }
 }

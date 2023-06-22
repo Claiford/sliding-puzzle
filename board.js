@@ -55,7 +55,7 @@ export class Board {
         this.gameGrid = Array.from(Array(height), () => new Array(width));
 
         this.fillTileContent();
-        this.shuffleBoard(1);
+        this.shuffleBoard(100);
 
         // show game mask
         document.querySelector("#game-mask").style.visibility = "visible";

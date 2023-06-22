@@ -100,10 +100,15 @@
                 <div id="complete-alert" class="alert alert-success d-flex align-items-center mx-3" role="alert">
                     <i class="bi bi-check-circle-fill me-2"></i>
                     <span>Puzzle complete!</span>
-                    <form  id="score-form" class="ms-auto d-flex align-items-center gap-2">
-                        <input type="text" class="form-control" placeholder="Name" required>
-                        <button type="submit" class="btn btn-success text-nowrap">Submit score</button>
+                    <form id="score-form" class="ms-auto">
+                        <fieldset class="d-flex align-items-center gap-2 text-nowrap">
+                            <input type="text" class="form-control" placeholder="Name" autocomplete="off" required>
+                            <button type="submit" class="btn btn-success text-nowrap">Submit score</button>
+                        </fieldset>
                     </form>
+                    <div id="score-form-post" class="ms-auto">
+                        Score submitted
+                    </div>
                 </div>
             </div>
         </div>

@@ -66,9 +66,13 @@ export class Board {
 
         // show pause button
         document.querySelector("#pause-button").style.visibility = "visible";
-
         // hide complete alert message
         document.querySelector("#complete-alert").style.visibility = "hidden";
+
+        // revert score-form elements
+        document.querySelector("#score-form").reset();
+        document.querySelector("#score-form").style.display = "block";
+        document.querySelector("#score-form-post").style.display = "none";
     
         this.emptyTileID = null;
         this.gameStart = false

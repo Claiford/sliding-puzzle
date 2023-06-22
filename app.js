@@ -1,57 +1,6 @@
 import { Board } from './board.js';
 import { scorer } from './scorer.js';
 
-// const updateHighscoreTable = async () => {
-//     const highscoreTable = document.querySelector("#highscore-table");
-//     highscoreTable.innerHTML = "";
-
-//     const formFilters = new FormData(document.querySelector("#highscore-form")).getAll("filters");
-
-//     let query = supabase
-//         .from('highscores')
-//         .select()
-//     if (formFilters.includes("puzzle"))  { query = query.eq('puzzle', board.gamePuzzle) }
-//     if (formFilters.includes("dimension"))  { query = query.eq('grid_size', board.gameDimension) }
-//     if (formFilters.includes("difficulty"))  { query = query.eq('difficulty', board.gameDifficulty) }
-//     query = query
-//         .order('time_seconds', { ascending: true })
-//         .limit(10)
-
-//     const {data, error} = await query
-
-//     for (let row of data) {
-//         const newRow = document.createElement("tr");
-//         // user
-//         const player = document.createElement("td");
-//         player.innerText = row["player_name"];
-//         newRow.append(player);
-//         // puzzle
-//         const puzzle = document.createElement("td");
-//         puzzle.innerText = row["puzzle"];
-//         newRow.append(puzzle);
-//         // dimension
-//         const dimension = document.createElement("td");
-//         dimension.innerText = row["grid_size"];
-//         newRow.append(dimension);
-//         // difficulty
-//         const difficulty = document.createElement("td");
-//         difficulty.innerText = row["difficulty"];
-//         newRow.append(difficulty);
-//         // time
-//         const time = document.createElement("td");
-//         const minutes = String(Math.floor(row["time_seconds"] / 60)).padStart(2, '0')
-//         const seconds = String((row["time_seconds"] % 60)).padStart(2, '0');
-//         time.innerText = `${minutes}:${seconds}`;
-//         newRow.append(time);
-//         // moves
-//         const moves = document.createElement("td");
-//         moves.innerText = row["move_count"];
-//         newRow.append(moves);
-
-//         highscoreTable.append(newRow);
-//     }
-// };
-
 //////////
 //    ___ __ __    ___  ____   ______      __ __   ____  ____   ___    _        ___  ____    _____
 //   /  _]  |  |  /  _]|    \ |      |    |  |  | /    ||    \ |   \  | |      /  _]|    \  / ___/
@@ -109,8 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // const scoreForm = document.querySelector("#score-form");
-    // scoreForm.addEventListener('submit', submitScore)
+    const scoreForm = document.querySelector("#score-form");
+    scoreForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        scorer.submitScore(board);
+    })
 });
 
 //////////

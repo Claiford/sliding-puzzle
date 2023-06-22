@@ -1,4 +1,5 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { timer } from './timer.js';
 
 const SUPABASE_URL = 'https://dklnskoijtaxitqqfmmy.supabase.co'
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrbG5za29panRheGl0cXFmbW15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY5NjI1NDQsImV4cCI6MjAwMjUzODU0NH0.nefGe9Xe7fJbBVpTscf0ma9oOlJhKUDqSnZNy5bCbv8"
@@ -54,5 +55,21 @@ export const scorer = {
     
             highscoreTable.append(newRow);
         }
+    },
+
+    submitScore: async function(board) {
+        const { error } = await SUPABASE
+            .from('highscores')
+            .insert({ 
+                player_name: document.querySelector("#score-form input").value, 
+                puzzle: board.gamePuzzle,
+                grid_size: board.gameDimension,
+                difficulty: board.gameDifficulty,
+                time_seconds: timer.gameTime,
+                move_count: board.gameMoveCount
+            })
+
+        document.querySelector("#score-form").style.display = "none";
+        document.querySelector("#score-form-post").style.display = "block";
     }
 }

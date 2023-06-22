@@ -1,6 +1,4 @@
-export {timer};
-
-const timer = {
+export const timer = {
     gameTime: 0,
     gameInterval: null,
 

@@ -19,8 +19,6 @@ const confirmChangeDifficulty = (e) => {
 };
 
 const alertChangeDifficulty = (e) => {
-    document.querySelector("#change-modal-selection").innerText = e.target.id.toUpperCase();
-
     const changeModalBody = document.querySelector("#change-modal-body");
     changeModalBody.innerHTML = "";
     const clone = document.querySelector(`#difficulty-desc-${e.target.id}`).cloneNode(true);

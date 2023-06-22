@@ -16,7 +16,7 @@ export const scorer = {
             .from('highscores')
             .select();
         if (formFilters.includes("puzzle"))  { query = query.eq('puzzle', board.gamePuzzle) }
-        if (formFilters.includes("dimension"))  { query = query.eq('grid_size', board.gameDimension) }
+        if (formFilters.includes("dimension"))  { query = query.eq('dimension', board.gameDimension) }
         if (formFilters.includes("difficulty"))  { query = query.eq('difficulty', board.gameDifficulty) }
         query = query
             .order('time_seconds', { ascending: true })
@@ -36,7 +36,7 @@ export const scorer = {
             newRow.append(puzzle);
             // dimension
             const dimension = document.createElement("td");
-            dimension.innerText = row["grid_size"];
+            dimension.innerText = row["dimension"];
             newRow.append(dimension);
             // difficulty
             const difficulty = document.createElement("td");

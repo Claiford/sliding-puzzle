@@ -32,8 +32,8 @@
     <main class="container-fluid" data-bs-theme="dark">
         <div class="row">
             <div id="info-panel" class="col-md-4 gx-0 d-flex justify-content-center">
-                <div id="info-frame" class="d-flex flex-columnjustify-content-evenly align-items-center rounded m-3 p-3 w-100">
-                    <div id="info-score" class="info-subframe flex-fill d-flex justify-content-evenly  align-items-center">
+                <div id="info-frame" class="d-flex justify-content-evenly align-items-center rounded m-2 p-3 w-100">
+                    <div id="info-score" class="info-subframe flex-fill mb-2 d-flex justify-content-evenly gap-3">
                         <div id="info-time-container" class="rounded text-center">
                             <p class="info-label m-0 fw-bold">Time</p>
                             <hr class="m-1">
@@ -49,20 +49,20 @@
                             <p id="info-movecount" class="m-0">0</p>
                         </div>
                     </div>
-                    <div id="info-desc" class="info-subframe flex-fill d-flex justify-content-evenly  align-items-center">
+                    <div id="info-desc" class="info-subframe flex-fill d-flex justify-content-evenly gap-3">
                         <div id="info-puzzle-container" class="rounded text-center">
                             <p class="info-label m-0 fw-bold">Puzzle</p>
                             <hr class="m-1">
-                            <p id="info-puzzle" class="m-0">Gryffindor Crest</p>
+                            <p id="info-puzzle" class="m-0"></p>
                         </div>
                         <div id="info-dimension-container" class="rounded text-center">
                             <p class="info-label m-0 fw-bold">Dimension</p>
                             <hr class="m-1">
-                            <p id="info-puzzle" class="m-0">3 x 3</p>
+                            <p id="info-dimension" class="m-0"></p>
                         </div>
                         <div id="info-difficulty-container" class="rounded text-center">
                             <p class="info-label m-0 fw-bold">Difficulty 
-                                <button id="difficulty-info" type="button" class="btn p-0 pb-1 border-0" data-bs-toggle="modal" data-bs-target="#difficulty-modal">
+                                <button id="difficulty-info" type="button" class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#difficulty-modal">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </button>
                             </p>                          
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div id="game-panel" class="col-md-8 gx-0">
-                <div id="game-backdrop" class="rounded m-3">
+                <div id="game-backdrop" class="d-flex justify-content-center rounded m-2">
                     <div id="game-frame" class="d-flex justify-content-center align-items-center">
                         <div id="game-grid" class="w-75 d-flex flex-wrap"></div>
                     </div>
@@ -97,13 +97,13 @@
         </div>
         <div class="row">
             <div class="gx-0">
-                <div id="complete-alert" class="alert alert-success d-flex align-items-center mx-3" role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i>
-                    <span>Puzzle complete!</span>
+                <div id="complete-alert" class="alert alert-success d-flex align-items-center m-2" role="alert">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span class="mx-2">Puzzle complete!</span>
                     <form id="score-form" class="ms-auto">
-                        <fieldset class="d-flex align-items-center gap-2 text-nowrap">
+                        <fieldset class="d-flex align-items-center gap-2">
                             <input type="text" class="form-control" placeholder="Name" autocomplete="off" required>
-                            <button type="submit" class="btn btn-success text-nowrap">Submit score</button>
+                            <button type="submit" class="btn btn-success text-nowrap">Submit</button>
                         </fieldset>
                     </form>
                     <div id="score-form-post" class="ms-auto">
@@ -127,8 +127,8 @@
                         <thead>
                           <tr>
                             <th scope="col">Difficulty</th>
-                            <th scope="col">Last tile</th>
-                            <th scope="col">Tile number</th>
+                            <th scope="col">Last tile puzzle</th>
+                            <th scope="col">Tile sequence</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -167,19 +167,18 @@
     </div>
 
     <div class="modal fade" id="change-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="change-difficulty" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content text-bg-dark">
             <div class="modal-header">
                 <h1 class="modal-title fs-2 fw-bold" id="exampleModalLabel">Reset Game?</h1>
             </div>
             <div class="modal-body">
-                <p class="fs-4">Difficulty: <span id="change-modal-selection"></span></p>
                 <table class="table table-dark">
                     <thead>
                         <tr>
                             <th scope="col">Difficulty</th>
-                            <th scope="col">Last tile</th>
-                            <th scope="col">Tile number</th>
+                            <th scope="col">Last tile puzzle</th>
+                            <th scope="col">Tile sequence</th>
                         </tr>
                     </thead>
                     <tbody id="change-modal-body">
@@ -203,10 +202,6 @@
         </div>
         <div class="offcanvas-body">
             <div id="highscore-filters">
-                <div class="form-switch">
-                    <input class="form-check-input" type="checkbox" value="" id="filter-all">
-                    <label class="form-check-label" for="filter-all">All</label>
-                </div>
                 <form id="highscore-form" class="d-flex justify-content-between gap-1 mx-auto">
                     <div>
                         <input type="checkbox" class="form-check-input" name="filters" value="puzzle" id="filter-puzzle" autocomplete="off">

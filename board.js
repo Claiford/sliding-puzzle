@@ -15,7 +15,9 @@ export class Board {
     };
 
     constructBoard = () => {
-        // update game difficulty toggles
+        // update game info
+        document.querySelector("#info-puzzle").innerText = this.gamePuzzle;
+        document.querySelector("#info-dimension").innerText = this.gameDimension;
         this.setDifficulty(this.gameDifficulty);
 
         // set frame dimensions and frame image
@@ -53,7 +55,7 @@ export class Board {
         this.gameGrid = Array.from(Array(height), () => new Array(width));
 
         this.fillTileContent();
-        this.shuffleBoard(100);
+        this.shuffleBoard(1);
 
         // show game mask
         document.querySelector("#game-mask").style.visibility = "visible";

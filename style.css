@@ -3,6 +3,10 @@ body {
     min-width: 300px;
 }
 
+section {
+    flex-direction: column;
+}
+
 #highscores-btn:hover {
     background: #464c50;
 }
@@ -11,6 +15,7 @@ body {
     background-image: linear-gradient(120deg, #938d85, #4c3f32); 
     background-color: #938d85;
     flex-direction: column;
+    margin: 16px 16px 8px 16px;
 }
 
 #info-frame * {
@@ -34,6 +39,7 @@ body {
     background-size: cover;
     background-color: #938d85;
     position: relative;
+    margin: 8px 16px;
 }
 
 #game-frame {
@@ -155,8 +161,18 @@ body {
 }
 
 @media (min-width: 768px) {
+    section {
+        flex-direction: row;
+    }
+
+    #info-panel {
+        width: 30%;
+        max-width: 300px;
+    }
+
     #info-frame {
         flex-direction: column;
+        margin: 16px 8px 8px 16px;
     }
     
     .info-subframe {
@@ -173,6 +189,14 @@ body {
 
     .difficulty-name {
         display: inline-block;
+    }
+
+    #game-panel {
+        width: 70%;
+    }
+
+    #game-backdrop {
+        margin: 16px 16px 8px 8px;
     }
 
     #game-frame {

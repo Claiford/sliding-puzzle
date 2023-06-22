@@ -29,10 +29,10 @@
         </div>
     </nav>
 
-    <main class="container-fluid" data-bs-theme="dark">
-        <div class="row">
-            <div id="info-panel" class="col-md-4 gx-0 d-flex justify-content-center">
-                <div id="info-frame" class="d-flex justify-content-evenly align-items-center rounded m-2 p-3 w-100">
+    <main class="" data-bs-theme="dark">
+        <section class="d-flex">
+            <div id="info-panel" class="d-flex justify-content-center">
+                <div id="info-frame" class="d-flex justify-content-evenly align-items-center rounded p-3 w-100">
                     <div id="info-score" class="info-subframe flex-fill mb-2 d-flex justify-content-evenly gap-3">
                         <div id="info-time-container" class="rounded text-center">
                             <p class="info-label m-0 fw-bold">Time</p>
@@ -79,8 +79,8 @@
                     </div>
                 </div>
             </div>
-            <div id="game-panel" class="col-md-8 gx-0">
-                <div id="game-backdrop" class="d-flex justify-content-center rounded m-2">
+            <div id="game-panel" class="flex-fill">
+                <div id="game-backdrop" class="d-flex justify-content-center rounded">
                     <div id="game-frame" class="d-flex justify-content-center align-items-center">
                         <div id="game-grid" class="w-75 d-flex flex-wrap"></div>
                     </div>
@@ -94,25 +94,20 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="gx-0">
-                <div id="complete-alert" class="alert alert-success d-flex align-items-center m-2" role="alert">
-                    <i class="bi bi-check-circle-fill"></i>
-                    <span class="mx-2">Puzzle complete!</span>
-                    <form id="score-form" class="ms-auto">
-                        <fieldset class="d-flex align-items-center gap-2">
-                            <input type="text" class="form-control" placeholder="Name" autocomplete="off" required>
-                            <button type="submit" class="btn btn-success text-nowrap">Submit</button>
-                        </fieldset>
-                    </form>
-                    <div id="score-form-post" class="ms-auto">
-                        Score submitted
-                    </div>
+        </section>
+            <div id="complete-alert" class="alert alert-success d-flex align-items-center m-2 mx-3" role="alert">
+                <i class="bi bi-check-circle-fill"></i>
+                <span class="mx-2">Puzzle complete!</span>
+                <form id="score-form" class="ms-auto">
+                    <fieldset class="d-flex align-items-center gap-2">
+                        <input type="text" class="form-control" placeholder="Name" autocomplete="off" required>
+                        <button type="submit" class="btn btn-success text-nowrap">Submit</button>
+                    </fieldset>
+                </form>
+                <div id="score-form-post" class="ms-auto">
+                    Score submitted
                 </div>
             </div>
-        </div>
-        
     </main>  
 
     <!-- MODALS -->

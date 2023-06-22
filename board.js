@@ -63,6 +63,12 @@ export class Board {
         const frame = document.querySelector("#game-frame")
         frame.classList.remove(frame.classList[3]);
         document.querySelector("#game-grid").innerHTML = "";
+
+        // show pause button
+        document.querySelector("#pause-button").style.visibility = "visible";
+
+        // hide complete alert message
+        document.querySelector("#complete-alert").style.visibility = "hidden";
     
         this.emptyTileID = null;
         this.gameStart = false
@@ -202,15 +208,27 @@ export class Board {
     }
 
     endBoard = () => {
+        // remove tile click event handler
         const allTiles = document.querySelectorAll(".tile");
         for (let tile of allTiles) {
             tile.removeEventListener('click', this.clickTile);
         }
-    
+        
+        // show final tile image
         const finalTileContent = document.querySelector(`#${this.emptyTileID} img`);
         finalTileContent.style.visibility = "visible";
-    
+        
+        // stop game timer
         timer.stopTimer();
+
+
+        // hide pause button
+        document.querySelector("#pause-button").style.visibility = "hidden";
+
+        // show complete alert message
+        document.querySelector("#complete-alert").style.visibility = "visible";
+
+        console.log("WINNER");
     }
 
     clickTile = (event) => {
@@ -235,7 +253,6 @@ export class Board {
     
         // check if winning condition is met
         if (this.gameStart && this.checkWin()) {
-            console.log("WINNER");
             this.endBoard();
         }
     };

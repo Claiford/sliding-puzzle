@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
-
+         
 </head>
 <body class="vh-100">
-        <nav class="navbar navbar-expand bg-dark-subtle" data-bs-theme="dark">
+    <nav class="navbar navbar-expand bg-dark-subtle" data-bs-theme="dark">
         <div class="container-fluid">
           <!-- <a class="navbar-brand" href="#">HPSP</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +29,7 @@
         </div>
     </nav>
 
-    <main class="container-fluid">
+    <main class="container-fluid" data-bs-theme="dark">
         <div class="row">
             <div id="info-panel" class="col-md-4 gx-0 d-flex justify-content-center">
                 <div id="info-frame" class="d-flex flex-columnjustify-content-evenly align-items-center rounded m-3 p-3 w-100">
@@ -61,7 +62,8 @@
                         </div>
                         <div id="info-difficulty-container" class="rounded text-center">
                             <p class="info-label m-0 fw-bold">Difficulty 
-                                <button id="difficulty-info" type="button" class="badge btn btn-secondary fst-italic rounded-circle" data-bs-toggle="modal" data-bs-target="#difficulty-modal">i
+                                <button id="difficulty-info" type="button" class="btn p-0 pb-1 border-0" data-bs-toggle="modal" data-bs-target="#difficulty-modal">
+                                    <i class="bi bi-info-circle-fill"></i>
                                 </button>
                             </p>                          
                             <hr class="m-1">
@@ -83,7 +85,7 @@
                         <div id="game-grid" class="w-75 d-flex flex-wrap"></div>
                     </div>
                     <button id="pause-button" type="button" class="btn p-0 border-0">
-                        <img src="./images/pause_button.png" class="w-100">
+                        <img src="./images/pause_button.png" class="w-100 mb-1">
                     </button>
                     <div id="game-mask" class="d-flex justify-content-center align-items-center rounded w-100 h-100">
                         <button id="play-button" type="button" class="btn">
@@ -93,6 +95,19 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="gx-0">
+                <div id="complete-alert" class="alert alert-success d-flex align-items-center mx-3" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span>Puzzle complete!</span>
+                    <form class="ms-auto d-flex align-items-center gap-2">
+                        <input type="text" class="form-control" placeholder="Name" required>
+                        <button type="submit" class="btn btn-success text-nowrap">Submit score</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
     </main>  
 
     <!-- MODALS -->

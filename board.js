@@ -55,7 +55,7 @@ export class Board {
         this.gameGrid = Array.from(Array(height), () => new Array(width));
 
         this.fillTileContent();
-        this.shuffleBoard(100);
+        this.shuffleBoard(1);
 
         // show game mask
         document.querySelector("#game-mask").style.visibility = "visible";
@@ -219,6 +219,8 @@ export class Board {
     };
 
     endBoard = () => {
+        this.gameStart = false;
+
         // remove tile click event handler
         const allTiles = document.querySelectorAll(".tile");
         for (let tile of allTiles) {

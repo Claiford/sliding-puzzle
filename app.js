@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const difficultyBtns = difficultyForm.querySelectorAll("input[type='radio']");
     for (let btn of difficultyBtns) {
         btn.addEventListener("change", (e) => {
-            pauseBtn.click();
+            if (board.gameStart) pauseBtn.click();
 
             const changeModalBody = document.querySelector("#change-modal-body");
             changeModalBody.innerHTML = "";
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const highscoreBtn = document.querySelector("#highscore-button");
     highscoreBtn.addEventListener("click", () => {
-        pauseBtn.click();
+        if (board.gameStart) pauseBtn.click();
         scorer.updateHighscoreTable(board);
     });
 

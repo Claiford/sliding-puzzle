@@ -81,7 +81,12 @@
                 </div>
             </div>
             <div id="game-panel" class="flex-fill">
-                <div id="game-backdrop" class="d-flex justify-content-center rounded">
+                <div id="game-loader" class="d-flex justify-content-center align-items-center mt-3 h-100">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div id="game-backdrop" class="d-flex justify-content-center rounded d-none">
                     <div id="game-frame" class="d-flex justify-content-center align-items-center">
                         <div id="game-grid" class="w-75 d-flex flex-wrap"></div>
                     </div>

@@ -22,6 +22,7 @@ play/pause/reset | [x] | 21-Jun | -
 highscore submissions | [x] | 22-Jun | -
 responsive layout | [x] | 22-Jun | -
 favicon | [x] | 22-Jun | -
+puzzle loader | [x] | 22-Jun | setTimeout
 selection screen layout | [ ] | -
 grid size selection | [ ] | -
 image selection | [ ] | -

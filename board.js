@@ -15,6 +15,10 @@ export class Board {
     };
 
     constructBoard = () => {
+        // show loader
+        document.querySelector("#game-loader").classList.remove("d-none");
+        document.querySelector("#game-backdrop").classList.add("d-none");
+
         // update game info
         document.querySelector("#info-puzzle").innerText = this.gamePuzzle;
         document.querySelector("#info-dimension").innerText = this.gameDimension;
@@ -59,6 +63,12 @@ export class Board {
 
         // show game mask
         document.querySelector("#game-mask").style.visibility = "visible";
+
+        // replace loader
+        setTimeout(() => {
+            document.querySelector("#game-loader").classList.add("d-none");
+            document.querySelector("#game-backdrop").classList.remove("d-none");
+        }, 1000);
     };
 
     resetBoard = () => {

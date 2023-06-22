@@ -18,8 +18,10 @@ difficulty info and selection | [x] | 15-Jun | bootstrap modals
 move no. tracking | [x] | 15-Jun | -
 time tracking | [x] | 15-Jun | -
 highscores retrieval | [x] | 17-Jun | bootstrap offcanvas
+play/pause/reset | [x] | 21-Jun | -
 highscore submissions | [x] | 22-Jun | -
 responsive layout | [x] | 22-Jun | -
+favicon | [x] | 22-Jun | -
 selection screen layout | [ ] | -
 grid size selection | [ ] | -
 image selection | [ ] | -

@@ -12,39 +12,41 @@ import { scorer } from './scorer.js';
 //
 //////////
 
-const confirmChangeDifficulty = (e) => {
-    e.preventDefault();
-    board.gameDifficulty = (new FormData(e.target)).get("difficulty-options");
-    board.resetBoard();
-};
-
-const alertChangeDifficulty = (e) => {
-    const changeModalBody = document.querySelector("#change-modal-body");
-    changeModalBody.innerHTML = "";
-    const clone = document.querySelector(`#difficulty-desc-${e.target.id}`).cloneNode(true);
-    changeModalBody.append(clone);
-
-    const changeModal = new bootstrap.Modal('#change-modal');
-    changeModal.show();
-};
-
 document.addEventListener("DOMContentLoaded", () => {
+    const playBtn = document.querySelector("#play-button");
+    playBtn.addEventListener("click", board.startBoard);
+
+    const pauseBtn = document.querySelector("#pause-button");
+    pauseBtn.addEventListener("click", board.pauseBoard);
+
+    const resetBtn = document.querySelector("#reset-button");
+    resetBtn.addEventListener("click", board.resetBoard);
+    
     const difficultyForm = document.querySelector("#difficulty-form");
-    difficultyForm.addEventListener('submit', confirmChangeDifficulty);
+    difficultyForm.addEventListener('submit',  (e) => {
+        e.preventDefault();
+        board.gameDifficulty = (new FormData(e.target)).get("difficulty-options");
+        board.resetBoard();
+    });
 
     const difficultyBtns = difficultyForm.querySelectorAll("input[type='radio']");
     for (let btn of difficultyBtns) {
-        btn.addEventListener("change", alertChangeDifficulty);
+        btn.addEventListener("change", (e) => {
+            pauseBtn.click();
+
+            const changeModalBody = document.querySelector("#change-modal-body");
+            changeModalBody.innerHTML = "";
+            const clone = document.querySelector(`#difficulty-desc-${e.target.id}`).cloneNode(true);
+            changeModalBody.append(clone);
+        
+            const changeModal = new bootstrap.Modal('#change-modal');
+            changeModal.show();
+        });
     };
-
-    const playBtn = document.querySelector("#play-button");
-    playBtn.addEventListener("click", board.startBoard)
-
-    const pauseBtn = document.querySelector("#pause-button");
-    pauseBtn.addEventListener("click", board.pauseBoard)
 
     const highscoreBtn = document.querySelector("#highscore-button");
     highscoreBtn.addEventListener("click", () => {
+        pauseBtn.click();
         scorer.updateHighscoreTable(board);
     });
 

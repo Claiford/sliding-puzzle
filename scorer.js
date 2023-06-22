@@ -63,7 +63,7 @@ export const scorer = {
             .insert({ 
                 player_name: document.querySelector("#score-form input").value, 
                 puzzle: board.gamePuzzle,
-                grid_size: board.gameDimension,
+                dimension: board.gameDimension,
                 difficulty: board.gameDifficulty,
                 time_seconds: timer.gameTime,
                 move_count: board.gameMoveCount

@@ -12,7 +12,7 @@ export class Board {
         this.gameStart = false;                 // {bool}   
         this.emptyTileID = "";                  // {string}
 
-    }
+    };
 
     constructBoard = () => {
         // update game difficulty toggles
@@ -53,17 +53,13 @@ export class Board {
         this.gameGrid = Array.from(Array(height), () => new Array(width));
 
         this.fillTileContent();
-        this.shuffleBoard(1);
+        this.shuffleBoard(100);
 
         // show game mask
         document.querySelector("#game-mask").style.visibility = "visible";
     };
 
     resetBoard = () => {
-        const frame = document.querySelector("#game-frame")
-        frame.classList.remove(frame.classList[3]);
-        document.querySelector("#game-grid").innerHTML = "";
-
         // show pause button
         document.querySelector("#pause-button").style.visibility = "visible";
         // hide complete alert message
@@ -73,12 +69,21 @@ export class Board {
         document.querySelector("#score-form").reset();
         document.querySelector("#score-form").style.display = "block";
         document.querySelector("#score-form-post").style.display = "none";
-    
+
+        // remove existing frame contents
+        const frame = document.querySelector("#game-frame")
+        frame.classList.remove(frame.classList[3]);
+        document.querySelector("#game-grid").innerHTML = "";
+        
+        // reset board variables
         this.emptyTileID = null;
         this.gameStart = false
         this.gameMoveCount = 0;
         document.querySelector("#info-movecount").innerText = this.gameMoveCount;
+
+        // reset timer
         timer.resetTimer();
+
         this.constructBoard();
     };
     
@@ -190,7 +195,7 @@ export class Board {
             const randomIndex = Math.floor(Math.random() * adjacentTiles.length);
             adjacentTiles[randomIndex].click();
         }
-    }
+    };
 
     startBoard = () => {
         // hide game mask
@@ -201,7 +206,7 @@ export class Board {
         
         // trigger gameStart flag
         this.gameStart = true;
-    }
+    };
 
     pauseBoard = () => {
         // show game mask
@@ -209,7 +214,7 @@ export class Board {
 
         // stop game timer
         timer.stopTimer();
-    }
+    };
 
     endBoard = () => {
         // remove tile click event handler
@@ -225,15 +230,12 @@ export class Board {
         // stop game timer
         timer.stopTimer();
 
-
         // hide pause button
         document.querySelector("#pause-button").style.visibility = "hidden";
 
         // show complete alert message
         document.querySelector("#complete-alert").style.visibility = "visible";
-
-        console.log("WINNER");
-    }
+    };
 
     clickTile = (event) => {
         ///// this function checks if any adjacent tile is the empty tile, if so swap content /////
@@ -295,5 +297,5 @@ export class Board {
             }
         }
         return isWin;
-    }
+    };
 }

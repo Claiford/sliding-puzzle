@@ -6,7 +6,6 @@ export class Board {
         this.gameDimension = dimension;         // {string} dimension (width)x(height) eg. "3x3"
         this.gameDifficulty = difficulty;       // {string} difficulty eg. "wombat"
         this.gameGrid = null;                   // {arr[]}  eg. "Gryffindor Crest"
-        this.gameTime = 0;                      // {int}    elapsed time in seconds
         this.gameMoveCount = 0;                 // {int}    number of tile clicks made
         this.toggleFixedMissingTile = true;     // {bool}   
         this.toggleShowImageSequence = true;    // {bool}   
@@ -14,37 +13,6 @@ export class Board {
         this.emptyTileID = "";                  // {string}
 
     }
-    
-    setDifficulty = (selectedDifficulty) => {
-        //// this function adjusts game settings based on selected difficulty /////
-        // adjust toggles
-        if (selectedDifficulty === "wombat") {
-            this.toggleFixedMissingTile = true;
-            this.toggleShowImageSequence = true;
-        } else if (selectedDifficulty === "owl") {
-            this.toggleFixedMissingTile = false;
-            this.toggleShowImageSequence = true;
-        } else if (selectedDifficulty === "newt") {
-            this.toggleFixedMissingTile = false;
-            this.toggleShowImageSequence = false;
-        }
-    
-        // update difficulty buttons checked status
-        const difficultyBtns = document.querySelectorAll("#difficulty-form input[type='radio']");
-        for (let btn of difficultyBtns) {
-            (btn.id === selectedDifficulty) ? btn.setAttribute("checked", "checked") : btn.removeAttribute("checked");
-        }
-    };
-
-    resetBoard = () => {
-        const frame = document.querySelector("#game-frame")
-        frame.classList.remove(frame.classList[3]);
-        document.querySelector("#game-grid").innerHTML = "";
-    
-        this.emptyTileID = null;
-        this.gameStart = false
-        this.constructBoard();
-    };
 
     constructBoard = () => {
         // update game difficulty toggles
@@ -86,9 +54,45 @@ export class Board {
 
         this.fillTileContent();
         this.shuffleBoard(1);
-        this.startBoard();
+
+        // show game mask
+        document.querySelector("#game-mask").style.visibility = "visible";
     };
 
+    resetBoard = () => {
+        const frame = document.querySelector("#game-frame")
+        frame.classList.remove(frame.classList[3]);
+        document.querySelector("#game-grid").innerHTML = "";
+    
+        this.emptyTileID = null;
+        this.gameStart = false
+        this.gameMoveCount = 0;
+        document.querySelector("#info-movecount").innerText = this.gameMoveCount;
+        timer.resetTimer();
+        this.constructBoard();
+    };
+    
+    setDifficulty = (selectedDifficulty) => {
+        //// this function adjusts game settings based on selected difficulty /////
+        // adjust toggles
+        if (selectedDifficulty === "wombat") {
+            this.toggleFixedMissingTile = true;
+            this.toggleShowImageSequence = true;
+        } else if (selectedDifficulty === "owl") {
+            this.toggleFixedMissingTile = false;
+            this.toggleShowImageSequence = true;
+        } else if (selectedDifficulty === "newt") {
+            this.toggleFixedMissingTile = false;
+            this.toggleShowImageSequence = false;
+        }
+    
+        // update difficulty buttons checked status
+        const difficultyBtns = document.querySelectorAll("#difficulty-form input[type='radio']");
+        for (let btn of difficultyBtns) {
+            (btn.id === selectedDifficulty) ? btn.setAttribute("checked", "checked") : btn.removeAttribute("checked");
+        }
+    };
+    
     fillTileContent = () => {
         // create canvas element to draw and crop image
         const canvas = document.createElement("canvas")
@@ -179,11 +183,22 @@ export class Board {
     }
 
     startBoard = () => {
+        // hide game mask
+        document.querySelector("#game-mask").style.visibility = "hidden";
+
         // start game timer
-        timer.startTimer(this.gameTime);
+        timer.startTimer();
         
         // trigger gameStart flag
         this.gameStart = true;
+    }
+
+    pauseBoard = () => {
+        // show game mask
+        document.querySelector("#game-mask").style.visibility = "visible";
+
+        // stop game timer
+        timer.stopTimer();
     }
 
     endBoard = () => {

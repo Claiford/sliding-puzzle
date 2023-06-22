@@ -89,6 +89,12 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("change", alertChangeDifficulty);
     };
 
+    const playBtn = document.querySelector("#play-button");
+    playBtn.addEventListener("click", board.startBoard)
+
+    const pauseBtn = document.querySelector("#pause-button");
+    pauseBtn.addEventListener("click", board.pauseBoard)
+
     const supabaseUrl = 'https://dklnskoijtaxitqqfmmy.supabase.co'
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrbG5za29panRheGl0cXFmbW15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY5NjI1NDQsImV4cCI6MjAwMjUzODU0NH0.nefGe9Xe7fJbBVpTscf0ma9oOlJhKUDqSnZNy5bCbv8"
     supabase = window.supabase.createClient(supabaseUrl, supabaseKey)

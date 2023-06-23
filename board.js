@@ -84,7 +84,7 @@ export class Board {
 
         // remove existing frame contents
         const frame = document.querySelector("#game-frame")
-        frame.classList.remove(frame.classList[3]);
+        frame.classList.remove(frame.classList[4]);
         document.querySelector("#game-grid").innerHTML = "";
         
         // reset board variables

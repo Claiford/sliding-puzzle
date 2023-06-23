@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectBtn = document.querySelector("#select-button");
     selectBtn.addEventListener('click', () => {
         const check = document.querySelector(".carousel-inner .active");
-        console.log(check)
+        console.log(check);
     })
 
     const dimensionBtns = document.querySelectorAll(".menu-item");

@@ -2,27 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revelio</title>
+    <title>Selection · Revelio</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/5699c5139f.js" crossorigin="anonymous"></script>
 </head>
-<body class="vh-100">
+<body>
     <nav class="navbar navbar-expand bg-dark-subtle" data-bs-theme="dark">
         <div class="container-fluid">
-          <!-- <a class="navbar-brand" href="#">HPSP</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon">X</span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="#">Puzzles</a>
-              <a class="nav-link" href="#">About</a>
-            </div>
+                <a class="nav-link active" aria-current="page" href="./index.html">Selection</a>
+                <a class="nav-link" href="./game.html">Puzzle</a>
+              </div>
             <button id="highscore-button" class="btn ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#highscore-offcanvas">
                 🏆
               </button>
@@ -32,91 +30,44 @@
 
     <main class="" data-bs-theme="dark">
         <section class="d-flex">
-            <div id="info-panel" class="d-flex justify-content-center">
-                <div id="info-frame" class="d-flex justify-content-evenly align-items-center rounded w-100">
-                    <div id="info-score" class="info-subframe flex-fill mb-2 d-flex justify-content-evenly gap-3">
-                        <div id="info-time-container" class="rounded text-center">
-                            <p class="info-label m-0 fw-bold">Time</p>
-                            <hr class="m-1">
-                            <div id="info-time" class="m-0">
-                                <span id="timer-minutes">00</span>
-                                :
-                                <span id="timer-seconds">00</span>
-                            </div>    
-                        </div>
-                        <div id="info-movecount-container" class="rounded text-center">
-                            <p class="info-label m-0 fw-bold">Moves</p>
-                            <hr class="m-1">
-                            <p id="info-movecount" class="m-0">0</p>
-                        </div>
-                    </div>
-                    <div id="info-desc" class="info-subframe flex-fill d-flex justify-content-evenly gap-3">
-                        <div id="info-puzzle-container" class="rounded text-center">
-                            <p class="info-label m-0 fw-bold">Puzzle</p>
-                            <hr class="m-1">
-                            <p id="info-puzzle" class="m-0"></p>
-                        </div>
-                        <div id="info-dimension-container" class="rounded text-center">
-                            <p class="info-label m-0 fw-bold">Dimension</p>
-                            <hr class="m-1">
-                            <p id="info-dimension" class="m-0"></p>
-                        </div>
-                        <div id="info-difficulty-container" class="rounded text-center">
-                            <p class="info-label m-0 fw-bold">Difficulty 
-                                <button id="difficulty-info" type="button" class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#difficulty-modal">
-                                    <i class="bi bi-info-circle-fill"></i>
-                                </button>
-                            </p>                          
-                            <hr class="m-1">
-                            <form id="difficulty-form" class="d-flex justify-content-center gap-1 mx-auto">
-                                <input type="radio" class="btn-check" name="difficulty-options" id="wombat" value="wombat" autocomplete="off">
-                                <label class="btn btn-outline-dark border-0 p-1" for="wombat">🐨<br><span class="difficulty-name fw-bold">WOMBAT</span></label>
-                                <input type="radio" class="btn-check" name="difficulty-options" id="owl" value="owl" autocomplete="off">
-                                <label class="btn btn-outline-dark border-0 p-1" for="owl">🦉<br><span class="difficulty-name fw-bold">OWL</span></label>
-                                <input type="radio" class="btn-check" name="difficulty-options" id="newt" value="newt" autocomplete="off">
-                                <label class="btn btn-outline-dark border-0 p-1" for="newt">🦎<br><span class="difficulty-name fw-bold">NEWT</span></label>
-                            </form>
-                        </div>
-                    </div>
+            <div id="dimension-panel" class="side-panel d-flex justify-content-center">
+                <div id="dimension-frame" class="side-frame d-flex justify-content-center align-items-center rounded w-100 flex-wrap gap-2">
+                    <div class="menu-item d-flex justify-content-center align-items-center text-light fw-bold">3x3</div>
+                    <div class="menu-item d-flex justify-content-center align-items-center text-light fw-bold">3x4</div>
                 </div>
             </div>
-            <div id="game-panel" class="flex-fill">
-                <div id="game-loader" class="d-flex justify-content-center align-items-center mt-3 h-100">
+            <div id="selection-panel" class="center-panel flex-fill">
+                <div id="loader" class="d-flex justify-content-center align-items-center mt-3 h-100 d-none">
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div id="game-backdrop" class="d-flex justify-content-center rounded d-none">
-                    <div id="game-frame" class="d-flex justify-content-center align-items-center">
-                        <div id="game-grid" class="w-75 d-flex flex-wrap"></div>
-                    </div>
-                    <button id="reset-button" type="button" class="btn p-0 border-0">
-                        <i id="reset-icon" class="fa-solid fa-arrows-rotate text-dark"></i>
-                    </button>
-                    <button id="pause-button" type="button" class="btn p-0 border-0">
-                        <i id="pause-icon" class="fa-solid fa-pause text-dark"></i>
-                    </button>
-                    <div id="game-mask" class="d-flex justify-content-center align-items-center rounded w-100 h-100">
-                        <button id="play-button" type="button" class="btn p-0 border-0">
-                            <i id="play-icon" class="fa-regular fa-circle-play"></i>
-                        </button>
+                <div id="title" class="">
+                    <img src="./images/title.png" class="w-100">
+                </div>
+                <div class="center-backdrop d-flex justify-content-center rounded d-none">
+                    <div class="center-frame d-flex flex-column justify-content-center align-items-center gap-3">
+                        <div id="puzzle-carousel" class="carousel slide mt-3">
+                            <div class="carousel-indicators"></div>
+                            <div class="carousel-inner"></div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#puzzle-carousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#puzzle-carousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <form action="./game.html">
+                            <button id="select-button" type="submit" class="btn mb-3">
+                                <i class="fa-solid fa-wand-magic-sparkles fa-2xl"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </section>
-        <div id="complete-alert" class="alert alert-success d-flex align-items-center" role="alert">
-            <i class="bi bi-check-circle-fill"></i>
-            <span class="mx-2">Puzzle complete!</span>
-            <form id="score-form" class="ms-auto">
-                <fieldset class="d-flex align-items-center gap-2">
-                    <input type="text" class="form-control" placeholder="Name" autocomplete="off" required>
-                    <button type="submit" class="btn btn-success text-nowrap">Submit</button>
-                </fieldset>
-            </form>
-            <div id="score-form-post" class="ms-auto">
-                Score submitted
-            </div>
-        </div>
     </main>  
 
     <!-- MODALS -->
@@ -170,34 +121,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="change-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="change-difficulty" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content text-bg-dark">
-            <div class="modal-header">
-                <h1 class="modal-title fs-2 fw-bold" id="exampleModalLabel">Reset Game?</h1>
-            </div>
-            <div class="modal-body">
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">Difficulty</th>
-                            <th scope="col">Last tile puzzle</th>
-                            <th scope="col">Tile sequence</th>
-                        </tr>
-                    </thead>
-                    <tbody id="change-modal-body">
-                        
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-              <button type="reset" form="difficulty-form" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" form="difficulty-form" class="btn btn-danger" data-bs-dismiss="modal">Confirm</button>
-            </div>
-          </div>
-        </div>
-    </div>
-
     <!-- Offcanvas -->
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="highscore-offcanvas" aria-labelledby="highscoresOffcanvas">
         <div class="offcanvas-header">
@@ -246,9 +169,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="./board.js" type="module"></script>
-    <script src="./timer.js" type="module"></script>
-    <script src="./scorer.js" type="module"></script>
-    <script src="./app.js" type="module"></script>
+    <script src="./selector.js" type="module"></script>
 </body>
 </html>

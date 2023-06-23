@@ -16,8 +16,8 @@ export class Board {
 
     constructBoard = () => {
         // show loader
-        document.querySelector("#game-loader").classList.remove("d-none");
-        document.querySelector("#game-backdrop").classList.add("d-none");
+        document.querySelector("#loader").classList.remove("d-none");
+        document.querySelector(".center-backdrop").classList.add("d-none");
 
         // update game info
         document.querySelector("#info-puzzle").innerText = this.gamePuzzle;
@@ -66,8 +66,8 @@ export class Board {
 
         // replace loader
         setTimeout(() => {
-            document.querySelector("#game-loader").classList.add("d-none");
-            document.querySelector("#game-backdrop").classList.remove("d-none");
+            document.querySelector("#loader").classList.add("d-none");
+            document.querySelector(".center-backdrop").classList.remove("d-none");
         }, 1000);
     };
 
@@ -131,7 +131,7 @@ export class Board {
 
         // set image path
         const imageName = this.gamePuzzle.toLowerCase().replace(" ", "_");
-        const imageURL = `./images/${imageName}.png`
+        const imageURL = `./images/${this.gameDimension}/${imageName}.png`
 
         // loop through tiles to add individual tile content
         const allTiles = document.querySelectorAll(".tile");

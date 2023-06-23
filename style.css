@@ -12,7 +12,7 @@ section {
     background: #464c50;
 }
 
-#info-frame {
+.side-frame {
     background-image: linear-gradient(120deg, #938d85, #4c3f32); 
     background-color: #938d85;
     flex-direction: column;
@@ -20,7 +20,7 @@ section {
     padding: 8px
 }
 
-#info-frame * {
+.side-frame * {
     font-size: .8rem;
 }
 
@@ -36,7 +36,7 @@ section {
     display: none;
 }
 
-#game-backdrop {
+.center-backdrop {
     background-image: url(./images/blacksmoke.jpg);
     background-size: cover;
     background-color: #938d85;
@@ -44,14 +44,14 @@ section {
     margin: 8px 16px;
 }
 
-#game-frame {
+.center-frame {
     background-size: cover;
     max-height: calc(100vh - 285px);
 }
 
 #reset-button {
     position: absolute;
-    top: 1vw;
+    top: 0;
     left: 1vw;
 }
 
@@ -61,7 +61,7 @@ section {
 
 #pause-button {
     position: absolute;
-    top: 1vw;
+    top: 0;
     right: 1vw;
 }
 
@@ -168,17 +168,39 @@ section {
     display: none;
 }
 
+/* selection page specific items*/
+.menu-item {
+    background-image: url('./images/menu_bar.png');
+    background-size: cover;
+    width: 155px;
+    height: 37px;
+    text-align: center;
+    opacity: 50%;
+}
+
+.menu-item:hover {
+    opacity: 100%;
+    cursor: pointer;
+}
+
 @media (min-width: 480px) {
-    #info-frame {
+    .side-frame {
         flex-direction: row;
         gap: 10px;
         padding: 16px;
     }
 
-    #info-frame * {
+    .side-frame * {
         font-size: .9rem;
     }
-    
+
+    #reset-button {
+        top: 1vw;
+    }
+
+    #pause-button {
+        top: 1vw;
+    }
 }
 
 @media (min-width: 768px) {
@@ -186,12 +208,12 @@ section {
         flex-direction: row;
     }
 
-    #info-panel {
+    .side-panel {
         width: 30%;
         max-width: 300px;
     }
 
-    #info-frame {
+    .side-frame {
         flex-direction: column;
         margin: 16px 8px 8px 16px;
     }
@@ -212,15 +234,15 @@ section {
         display: inline-block;
     }
 
-    #game-panel {
+    .center-panel {
         width: 70%;
     }
 
-    #game-backdrop {
+    .center-backdrop {
         margin: 16px 16px 8px 8px;
     }
 
-    #game-frame {
+    .center-frame {
         max-height: calc(100vh - 175px);
     }
 }
